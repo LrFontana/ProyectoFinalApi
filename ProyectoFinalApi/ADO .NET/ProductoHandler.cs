@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
@@ -12,10 +13,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
         //Funciones.
 
-        //Borrar producto.
+        //Eliminar producto.
         public static bool EliminarProducto(int id)
         {
-            bool productoBorrado = false;
+            //variable.
+            bool productoEliminado = false;
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -29,32 +31,33 @@ namespace ProyectoFinalAppi.ADO_.NET
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
-                        int cantidadDeProductoEleiminado = sqlCommand.ExecuteNonQuery();
+                        int cantidadDeProductosEliminados = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductoEleiminado > 1)
+                        if (cantidadDeProductosEliminados > 1)
                         {
-                            Console.WriteLine("Producto Eliminado");
-                            return productoBorrado = true;
+                            Console.WriteLine("PRODUCTO ELIMINADO CON EXITO!");
+                            return productoEliminado = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! No se pudo eliminar el producto, por favor intentelo de nuevo");
-                            return productoBorrado = false;
+                            throw new EliminarErrorException("ERROR AL ELIMINAR EL PRODUCTO! POR FAVOR VERIFIQUE LA QUERY");
+                            return productoEliminado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (EliminarErrorException ex)
                 {
-                    throw new Exception("Query definition error" + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }                
             }
-            return productoBorrado = true;                     
+            return productoEliminado = true;                     
         }
 
-        //Agregar producto.
+        //Crear producto.
         public static bool CrearProducto(Producto producto)
         {
+            //Variable
             bool productoCreado = false;
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -74,34 +77,34 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.producto_Stock });
                         sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.producto_IdUsuario });
 
-                        int cantidadDeProductoCreado = sqlCommand.ExecuteNonQuery();
+                        int cantidadDeProductosCreados = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductoCreado > 1)
+                        if (cantidadDeProductosCreados > 1)
                         {
-                            Console.WriteLine("Producto Creado con EXITO!");
+                            Console.WriteLine("PRODUCTO CREADO CON EXITO!");
                             return productoCreado = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! No se pudo crear el producto, por favol intentelo de nuevo.");
+                            throw new CrearErrorException("ERROR AL CREAR EL PRODUCTO! POR FAVOR VERIFIQUE LA QUERY");
                             return productoCreado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (CrearErrorException ex)
                 {
-                    throw new Exception("Querry definition error " + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }                
             }
             return productoCreado;                  
         }
 
-        //Actualizar producto.
+        //Modificar producto.
         public static bool ModificarProducto(Producto producto)
         {
+            //Variable
             bool productoModificado = false;
-
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -130,20 +133,20 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         if (cantidadDeProductosModificados > 1)
                         {
-                            Console.WriteLine("El Producto fue modificado");
+                            Console.WriteLine("PRODUCTO MODIFICADO CON EXITO!");
                             return productoModificado = true;
                         }
                         else
                         {
-                            Console.WriteLine("EEROR! no se pudo modificar el producto, por favor intentelo de nuevo.");
+                            throw new ModificarErrorException("ERROR AL CREAR EL PRODUCTO! POR FAVOR VERIFIQUE LA QUERY");
                             return productoModificado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ModificarErrorException ex)
                 {
-                    throw new Exception("Querry definition error " + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }                
             }
             return productoModificado;              
@@ -156,7 +159,8 @@ namespace ProyectoFinalAppi.ADO_.NET
             Console.WriteLine("      MOSTRANDO TODOS LOS PRODUCTOS      ");
             Console.WriteLine("*****************************************\n");
 
-            List<Producto> listaProductos = new List<Producto>();
+            //Variable.
+            List<Producto> listaObtenerProductos = new List<Producto>();
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -180,32 +184,24 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     producto.producto_Costo = Convert.ToInt32(dataReader["Costo"]);
                                     producto.producto_PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
                                     producto.producto_Descipcion = dataReader["Descripciones"].ToString();
-                                    listaProductos.Add(producto);
+                                    listaObtenerProductos.Add(producto);
                                 }
-                            }                              
-                            
+                            }
+                            else
+                            {
+                                throw new GetErrorException("ERROR AL OBTENER LOS PRODUCTOS! POR FAVOR VERIFIQUE LA QUERY");
+                            }                            
                             dataReader.Close();                            
                         }                        
                         sqlConnection.Close();                       
                     }                      
                 }
             }
-            catch (Exception ex)
+            catch (GetErrorException ex)
             {
-
-                throw new Exception("Query error definition " + ex.Message);
+                Console.WriteLine(ex.Message);
             }
-
-            foreach(Producto producto in listaProductos)
-            {
-                Console.WriteLine($"Id: {producto.producto_Id}\n" +
-                    $"Stock: {producto.producto_Stock}\n" +
-                    $"Costo: {producto.producto_Costo}\n" +
-                    $"Precio de venta: {producto.producto_PrecioDeVenta}\n" +
-                    $"Descripcion: {producto.producto_Descipcion}\n" +
-                    $"Id usuario: {producto.producto_IdUsuario}");
-            }
-            return listaProductos;
+            return listaObtenerProductos;
         }
 
         //Obtener Productos por id.
@@ -215,8 +211,8 @@ namespace ProyectoFinalAppi.ADO_.NET
             Console.WriteLine("        MOSTRANDO PRODUCTOS POR ID       ");
             Console.WriteLine("*****************************************\n");
 
-            List<Producto> listaProductosPorId = new List<Producto>();
-
+            //Variable.
+            List<Producto> listaObtenerProductosPorId = new List<Producto>();
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -244,31 +240,24 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     producto.producto_Costo = Convert.ToInt32(dataReader["Costo"]);
                                     producto.producto_PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
                                     producto.producto_Descipcion = dataReader["Descripciones"].ToString();
-                                    listaProductosPorId.Add(producto);
+                                    listaObtenerProductosPorId.Add(producto);
                                 }
+                            }
+                            else
+                            {
+                                throw new GetErrorException("ERROR AL OBTENER LOS PRODUCTOS POR ID! POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (GetErrorException ex)
                     {
-                        throw new Exception("Query definition error " + ex.Message);
+                        Console.WriteLine(ex.Message);
                     }                    
                 }
-            }            
-
-            foreach (Producto producto in listaProductosPorId)
-            {
-                Console.WriteLine($"Id: {producto.producto_Id}\n" +
-                    $"Stock: {producto.producto_Stock}\n" +
-                    $"Costo: {producto.producto_Costo}\n" +
-                    $"Precio de venta: {producto.producto_PrecioDeVenta}\n" +
-                    $"Descripcion: {producto.producto_Descipcion}\n" +
-                    $"Id usuario: {producto.producto_IdUsuario}");
-            }
-            return listaProductosPorId;
-        }       
-        
+            }             
+            return listaObtenerProductosPorId;
+        }        
     }
 }

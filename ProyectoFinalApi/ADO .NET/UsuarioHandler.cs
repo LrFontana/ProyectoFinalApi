@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
@@ -12,11 +13,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
         //Funciones.
 
-        //Borrar Usuario.
+        //Eliminar Usuario.
         public static bool EliminarUsuario(int id)
         {
             //Variable.
-            bool eliminarUsuario = false;
+            bool usuarioEliminado = false;
             
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -36,27 +37,26 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         if (cantidadDeUsuariosEliminado > 1)
                         {
-                            Console.WriteLine("Usuario Eliminado con ¡EXITO!");
-                            eliminarUsuario = true;
+                            Console.WriteLine("USUARIO ELIMINADO CON EXITO!");
+                            usuarioEliminado = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! El usuario no se pudo eliminar, por favor intentelo de nuevo");
-                            eliminarUsuario = false;
+                            throw new EliminarErrorException("ERROR AL ELIMINAR EL USUARIO! POR FAVOR VERIFIQUE LA QUERY");
+                            usuarioEliminado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (EliminarErrorException ex)
                 {
-
-                    throw new Exception("Query definition error" + ex.Message); 
+                    Console.WriteLine(ex.Message); 
                 }                
             }
-            return eliminarUsuario;
+            return usuarioEliminado;
         }
 
-        //Agregar Usuario.
+        //Crear Usuario.
         public static bool CreartUsuario(Usuario usuario)
         {
             //Variable.
@@ -80,36 +80,34 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.usuario_Password });
                         sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.usuario_Mail });
 
-                        int cantidadDeUsuarioCreado = sqlCommand.ExecuteNonQuery();
+                        int cantidadDeUsuariosCreados = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeUsuarioCreado > 1)
+                        if (cantidadDeUsuariosCreados > 1)
                         {
-                            Console.WriteLine("Usuario Ceado con exito");
+                            Console.WriteLine("USUARIO CREADO CON EXITO!");
                             return usuarioCreado = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! El Usuario no se pudo crear, por favor intentelo de nuevo.");
+                            throw new CrearErrorException("ERROR AL CREAR EL USUARIO! POR FAVOR VERIFIQUE LA QUERY");
                             return usuarioCreado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (CrearErrorException ex)
                 {
-
-                    throw new Exception("Querry definition error " + ex.Message); 
+                    Console.WriteLine(ex.Message); 
                 }                
             }
-            return usuarioCreado;
-            
+            return usuarioCreado;            
         }
 
-        //Actualizar Usuario.
+        //Modificar Usuario.
         public static bool ModificarUsuario(Usuario usuario)
         {
             //Variable.
-            bool modificarUsuario = false;
+            bool usuarioModificado = false;
             
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -134,23 +132,26 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.usuario_Password });
                         sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.usuario_Mail });
 
-                        int cantidadDeFilasAfectadas = sqlCommand.ExecuteNonQuery();
+                        int cantidadDeUsuariosModificados = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeFilasAfectadas > 1)
+                        if (cantidadDeUsuariosModificados > 1)
                         {
-                            return modificarUsuario = true;
+                            Console.WriteLine("USUARIO CREADO CON EXITO!");
+                            return usuarioModificado = true;
+                        }
+                        else
+                        {
+                            throw new ModificarErrorException("ERROR AL MODIFICAR EL USUARIO! POR FAVOR VERIFIQUE LA QUERY");
                         }
                     }
                     connection.Close();
                 }
-                catch (Exception ex)
+                catch (ModificarErrorException ex)
                 {
-                    throw new Exception("Querry definition error " + ex.Message); 
-                }
-                
+                    Console.WriteLine(ex.Message); 
+                }                
             }
-            return modificarUsuario;
-            
+            return usuarioModificado;            
         }
 
         //Obtener Usuarios.
@@ -161,7 +162,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             Console.WriteLine("*********************************\n");
 
             //Variable.
-            List<Usuario> listaUsuario = new List<Usuario>();
+            List<Usuario> listaGetUsuarios = new List<Usuario>();
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -186,20 +187,24 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     usuario.usuario_NombreUsuario = dataReader["NombreUsuario"].ToString();
                                     usuario.usuario_Password = dataReader["Contraseña"].ToString();
                                     usuario.usuario_Mail = dataReader["Mail"].ToString();
-                                    listaUsuario.Add(usuario);
+                                    listaGetUsuarios.Add(usuario);
                                 }
-                            }                            
+                            }
+                            else
+                            {
+                                throw new GetErrorException("ERROR AL OBTENER LOS USUARIOS! POR FAVOR VERIFIQUE LA QUERY");
+                            }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (GetErrorException ex)
                     {
-                        throw new Exception("Query error definition " + ex.Message); 
+                        Console.WriteLine(ex.Message); 
                     }                    
                 }
             }            
-            return listaUsuario;
+            return listaGetUsuarios;
         }
 
         //Obtener usuarios por id.
@@ -209,8 +214,8 @@ namespace ProyectoFinalAppi.ADO_.NET
             Console.WriteLine("    MOSTRANDO USUARIOS POR ID    ");
             Console.WriteLine("*********************************\n");
 
-            List<Usuario> listaUsuarioId = new List<Usuario>();
-
+            //Variable
+            List<Usuario> listaGetUsuariosPorId = new List<Usuario>();
             
             using(SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -238,22 +243,93 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     usuario.usuario_NombreUsuario = dataReader["NombreUsuario"].ToString();
                                     usuario.usuario_Password = dataReader["Contraseña"].ToString();
                                     usuario.usuario_Mail = dataReader["Mail"].ToString();
-                                    listaUsuarioId.Add(usuario);
+                                    listaGetUsuariosPorId.Add(usuario);
                                 }
+                            }
+                            else
+                            {
+                                throw new GetErrorException("ERROR AL OBTENER LOS USUARIOS POR ID! POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (GetErrorException ex)
                     {
-                        throw new Exception("Querydefinition error" + ex.Message);
+                        Console.WriteLine(ex.Message);
                     }                    
                 }
             }            
-            return listaUsuarioId;
+            return listaGetUsuariosPorId;
         }
         
-    }
+        //Verificar usuario.
+        public static bool VerificarUsuario(string nombre, string password)
+        {
+            int cont = 0;
+            bool logingExitoso = false;
 
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryVerificarUsuario = "SELECT * FROM [SistemaGestion].[dbo].[Usuario] WHERE Nombre = @nombre, Contraseña = @contraseña";
+
+                try
+                {
+                    sqlConnection.Open();
+
+                    using (SqlCommand sqlCommand = new SqlCommand(queryVerificarUsuario, sqlConnection))
+                    {
+                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = nombre });
+                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.VarChar) { Value = password });
+
+                        sqlCommand.ExecuteNonQuery();
+
+                        do
+                        {
+                            if (password == password)
+                            {
+                                logingExitoso = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("PASWORD INCORRECTA, por favor vuelva a intentarlo");
+                            }
+
+                            cont++;
+
+                            if (cont > 5)
+                            {
+                                if (cont == 4)
+                                {
+                                    Console.WriteLine("ULTIMO INTENGO ANTES DE QUE EL PROGRAMA SE CIERRE");
+                                }
+                                break;
+                            }
+
+                        } while (logingExitoso is false);
+
+
+                        if (logingExitoso)
+                        {
+                            Console.WriteLine("BIENVENIDO!!!");
+                            return logingExitoso = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR AL LOGEARSE");
+                            return logingExitoso = false;
+                        }
+
+                    }
+
+                    sqlConnection.Open();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return logingExitoso;
+        }
+    }
 }

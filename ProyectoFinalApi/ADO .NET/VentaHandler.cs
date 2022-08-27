@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
@@ -11,14 +12,14 @@ namespace ProyectoFinalAppi.ADO_.NET
 
         //Funciones.
 
-        //Borrar Venta.
+        //Eliminar Venta.
         public static bool EliminarVenta(int id)
         {
+            //Varibale.
             bool ventaEliminada = false;            
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-
                 string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Venta] WHERE Id = @Id;";
 
                 SqlParameter sqlParameter = new SqlParameter("Id", SqlDbType.BigInt) { Value = id };                
@@ -32,24 +33,24 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         sqlCommand.Parameters.Add(sqlParameter);
 
-                        int cantidadDeVentaEliminada = sqlCommand.ExecuteNonQuery();
+                        int cantidadDeVentasEliminadas = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeVentaEliminada > 1)
+                        if (cantidadDeVentasEliminadas > 1)
                         {
-                            Console.WriteLine("Venta Eliminada conn ¡EXITO! ");
+                            Console.WriteLine("VENTA ELIMINADA CON EXITO!");
                             return ventaEliminada = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! No se puedo eliminar la venta, por favor vuelva a intentarlo.");
+                            throw new EliminarErrorException("ERROR AL ELIMINAR LA VENTA! POR FAVOR VERIFIQUE LA QUERY");
                             return ventaEliminada = false;
                         }
                     }
                     sqlConnection.Close();
                 }                
-                catch (Exception ex)
+                catch (EliminarErrorException ex)
                 {
-                    throw new Exception("Query definition error " + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }                              
             }
             return ventaEliminada;
@@ -59,6 +60,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Agregar Venta.
         public static bool CrearVenta(Venta venta)
         {
+            //Variable.
             bool ventaCreada = false;
                        
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -78,28 +80,29 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         if (cantidadDeVentasCreadas > 1)
                         {
-                            Console.WriteLine("Venta Creada con ¡EXITO!");
+                            Console.WriteLine("VENTA CREADA CON EXITO!");
                             return ventaCreada = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! No se pudo crear la venta, por favor intentelo de nuevo.");
+                            throw new CrearErrorException("ERROR AL CREAR LA VENTA! POR FAVOR VERIFIQUE LA QUERY");
                             return ventaCreada = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (CrearErrorException ex)
                 {
-                    throw new Exception("Query definition error " + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }               
             }
             return ventaCreada;            
         }
 
-        //Actualizar Ventas.
+        //Modificar Venta.
         public static bool ModificarVenta(Venta venta)
         {
+            //Variable
             bool ventaModificada = false;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -122,20 +125,20 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         if (cantidadDeVentasModificadas > 1)
                         {
-                            Console.WriteLine("Venta Modificada con ¡EXITO!");
+                            Console.WriteLine("VENTA MODIFICADA CON EXITO!");
                             return ventaModificada = true;
                         }
                         else
                         {
-                            Console.WriteLine("ERROR! No se pudo modificar la venta, por favor intentelo de nuevo.");
+                            throw new ModificarErrorException("ERROR AL MODIFICAR LA VENTA! POR FAVOR VERIFIQUE LA QUERY");
                             return ventaModificada = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ModificarErrorException ex)
                 {
-                    throw new Exception("Query definition error " + ex.Message);
+                    Console.WriteLine(ex.Message);
                 }                
             }
             return ventaModificada;
@@ -144,7 +147,12 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener Ventas.
         public static List<Venta> GetVentas()
         {
-            List<Venta> listaVentas = new List<Venta>();
+            Console.WriteLine("*****************************************");
+            Console.WriteLine("        MOSTRANDO TODAS LAS VENTAS       ");
+            Console.WriteLine("*****************************************\n");
+
+            //Variable
+            List<Venta> listaObtenerVentas = new List<Venta>();
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -165,27 +173,24 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     Venta venta = new Venta();
                                     venta.venta_Id = Convert.ToInt32(dataReader["Id"]);
                                     venta.venta_Comentarios = dataReader["Nombre"].ToString();
-                                    listaVentas.Add(venta);
+                                    listaObtenerVentas.Add(venta);
                                 }
+                            }
+                            else
+                            {
+                                throw new GetErrorException("ERROR AL OBTENER LAS VENTAS! POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
                 }
-                catch (Exception ex)
+                catch (GetErrorException ex)
                 {
-                    throw new Exception("Query error definition " + ex.Message); 
+                    Console.WriteLine(ex.Message); 
                 }                
-            }           
-
-            foreach (Venta venta in listaVentas)
-            {
-                Console.WriteLine($"Id: {venta.venta_Id}\n" +
-                    $"Comentarios: {venta.venta_Comentarios}\n");                   
             }
-            return listaVentas;
-        }
-        
+            return listaObtenerVentas;
+        }        
     }
 }

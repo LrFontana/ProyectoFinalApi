@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoFinalAppi.ADO_.NET;
+using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Controllers.DTOS;
 using ProyectoFinalAppi.Models;
 
@@ -18,9 +19,9 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return ProductoVendidoHandler.GetProductosVendidosPorId(id);
             }
-            catch (Exception ex)
+            catch (GetErrorException ex)
             {
-                throw new Exception(ex.Message);
+                throw new GetErrorException(ex.Message);
             }
         }
 
@@ -31,9 +32,9 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return ProductoVendidoHandler.EliminarProductoVendido(id);
             }
-            catch (Exception ex)
+            catch (EliminarErrorException ex)
             {
-                throw new Exception(ex.Message);
+                throw new EliminarErrorException(ex.Message);
             }
         }
 
@@ -49,9 +50,9 @@ namespace ProyectoFinalAppi.Controllers
                     productoVendido_Stock = productoVendido.Stock,                    
                 });
             }
-            catch (Exception ex)
+            catch (ModificarErrorException ex)
             {
-                throw new Exception(ex.Message);
+                throw new ModificarErrorException(ex.Message);
             }
         }
 
@@ -68,9 +69,9 @@ namespace ProyectoFinalAppi.Controllers
                     productoVendido_Stock = productoVendido.Stock,
                 });
             }
-            catch (Exception ex)
+            catch (CrearErrorException ex)
             {
-                throw new Exception(ex.Message);
+                throw new CrearErrorException(ex.Message);
             }
 
         }
