@@ -8,9 +8,7 @@
         private int Stock;
         private int IdUsuario;
         private double PrecioDeVenta;
-        private string Descripcion;
-             
-        
+        private string Descripcion;       
 
         //Constructor.
         public Producto()
@@ -20,9 +18,7 @@
             this.Stock = 0;
             this.IdUsuario = 0;
             this.PrecioDeVenta = 0;
-            this.Descripcion = String.Empty;
-            
-            
+            this.Descripcion = String.Empty;            
         }
         public Producto(int codigo, int costo, int stock, int idUsuario, double precioDeVenta, string descripcion)
         {
@@ -31,8 +27,7 @@
             this.Stock = stock;
             this.IdUsuario = idUsuario;
             this.PrecioDeVenta = precioDeVenta;
-            this.Descripcion= descripcion;
-                       
+            this.Descripcion= descripcion;                       
         }
 
         //Geters y Seters

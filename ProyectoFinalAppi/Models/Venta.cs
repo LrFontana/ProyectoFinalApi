@@ -18,7 +18,7 @@
             this.Comentarios = comentarios;
         }
 
-        // Gets y Sets
+        //Gets y Sets
         public int venta_Id
         {
             set { this.venta_Id = value; }

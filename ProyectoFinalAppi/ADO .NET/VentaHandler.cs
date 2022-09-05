@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
 using System.Data;
@@ -7,7 +8,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 {
     public static class VentaHandler 
     {
-        //Variable DataBase.
+        //Variable.
         public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
 
         //Funciones.
@@ -57,7 +58,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
         }
 
-        //Agregar Venta.
+        //Crear Venta.
         public static bool CrearVenta(Venta venta)
         {
             //Variable.

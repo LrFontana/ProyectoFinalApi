@@ -12,7 +12,7 @@ namespace ProyectoFinalAppi.Controllers
         [HttpGet]
         public string GetNombreApi()
         {
-            return "LRF COMPRAS";
+            return "LEANDRO FONTANA COMPRAS";
         }
     }
 }

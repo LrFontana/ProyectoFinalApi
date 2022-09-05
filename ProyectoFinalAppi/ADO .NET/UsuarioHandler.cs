@@ -8,7 +8,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 {
     public static class UsuarioHandler 
     {
-        //Variable DataBase.
+        //Variable.
         public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
 
         //Funciones.
