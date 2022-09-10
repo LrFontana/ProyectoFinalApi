@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProyectoFinalApi.Controllers.ExecptionFilter;
 using ProyectoFinalAppi.ADO_.NET;
 using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Controllers.DTOS;
@@ -9,6 +10,7 @@ namespace ProyectoFinalAppi.Controllers
     //Controlador Producto Vendido.
     [ApiController]
     [Route("[controller]")]
+    [TypeFilter(typeof(ExceptionManagerFilter))]
 
     public class ProductoVendidoController : ControllerBase
     {
