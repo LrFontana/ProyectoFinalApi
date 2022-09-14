@@ -47,11 +47,11 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return UsuarioHandler.ModificarUsuario(new Usuario
                 {                        
-                    usuario_Nombre = usuario.Nombre,
-                    usuario_Apellido = usuario.Apellido,
-                    usuario_NombreUsuario = usuario.NombreUsuario,
-                    usuario_Mail = usuario.Mail,
-                    usuario_Password = usuario.Password,
+                    Nombre = usuario.Nombre,
+                    Apellido = usuario.Apellido,
+                    NombreUsuario = usuario.NombreUsuario,
+                    Mail = usuario.Mail,
+                    Password = usuario.Password,
                 });                
             }
             catch (ModificarErrorException ex)
@@ -67,12 +67,12 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return UsuarioHandler.CreartUsuario(new Usuario
                 {
-                    usuario_Id = usuario.Id,
-                    usuario_Nombre = usuario.Nombre,
-                    usuario_Apellido = usuario.Apellido,
-                    usuario_NombreUsuario = usuario.NombreUsuario,
-                    usuario_Mail = usuario.Mail,
-                    usuario_Password = usuario.Password,
+                    Id = usuario.Id,
+                    Nombre = usuario.Nombre,
+                    Apellido = usuario.Apellido,
+                    NombreUsuario = usuario.NombreUsuario,
+                    Mail = usuario.Mail,
+                    Password = usuario.Password,
                 });
             }
             catch (CrearErrorException ex)

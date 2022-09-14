@@ -73,11 +73,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.usuario_Nombre });
-                        sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.usuario_Apellido });
-                        sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.usuario_NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.usuario_Password });
-                        sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.usuario_Mail });
+                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.Nombre });
+                        sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.Apellido });
+                        sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
+                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Password });
+                        sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
 
                         int cantidadDeUsuariosCreados = sqlCommand.ExecuteNonQuery();
 
@@ -125,11 +125,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryUpdate, connection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.usuario_Nombre });
-                        sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.usuario_Apellido });
-                        sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.usuario_NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.usuario_Password });
-                        sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.usuario_Mail });
+                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.NombreUsuario });
+                        sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.Apellido });
+                        sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
+                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Password });
+                        sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
 
                         int cantidadDeUsuariosModificados = sqlCommand.ExecuteNonQuery();
 
@@ -180,12 +180,12 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {
                                     Usuario usuario = new Usuario();
-                                    usuario.usuario_Id = Convert.ToInt32(dataReader["Id"]);
-                                    usuario.usuario_Nombre = dataReader["Nombre"].ToString();
-                                    usuario.usuario_Apellido = dataReader["Apellido"].ToString();
-                                    usuario.usuario_NombreUsuario = dataReader["NombreUsuario"].ToString();
-                                    usuario.usuario_Password = dataReader["Contraseña"].ToString();
-                                    usuario.usuario_Mail = dataReader["Mail"].ToString();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.Nombre = dataReader["Nombre"].ToString();
+                                    usuario.Apellido = dataReader["Apellido"].ToString();
+                                    usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
+                                    usuario.Password = dataReader["Contraseña"].ToString();
+                                    usuario.Mail = dataReader["Mail"].ToString();
                                     listaGetUsuarios.Add(usuario);
                                 }
                             }
@@ -236,12 +236,12 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {                                    
                                     Usuario usuario = new Usuario();
-                                    usuario.usuario_Id = Convert.ToInt32(dataReader["Id"]);
-                                    usuario.usuario_Nombre = dataReader["Nombre"].ToString();
-                                    usuario.usuario_Apellido = dataReader["Apellido"].ToString();
-                                    usuario.usuario_NombreUsuario = dataReader["NombreUsuario"].ToString();
-                                    usuario.usuario_Password = dataReader["Contraseña"].ToString();
-                                    usuario.usuario_Mail = dataReader["Mail"].ToString();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.Nombre = dataReader["Nombre"].ToString();
+                                    usuario.Apellido = dataReader["Apellido"].ToString();
+                                    usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
+                                    usuario.Password = dataReader["Contraseña"].ToString();
+                                    usuario.Mail = dataReader["Mail"].ToString();
                                     listaGetUsuariosPorId.Add(usuario);
                                 }
                             }

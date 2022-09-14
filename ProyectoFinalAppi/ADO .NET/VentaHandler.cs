@@ -75,7 +75,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = venta.venta_Comentarios });
+                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = venta.Comentarios });
 
                         int cantidadDeVentasCreadas = sqlCommand.ExecuteNonQuery();
 
@@ -119,8 +119,8 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = venta.venta_Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = venta.venta_Comentarios });
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = venta.Id });
+                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = venta.Comentarios });
 
                         int cantidadDeVentasModificadas = sqlCommand.ExecuteNonQuery();
 
@@ -172,8 +172,8 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {
                                     Venta venta = new Venta();
-                                    venta.venta_Id = Convert.ToInt32(dataReader["Id"]);
-                                    venta.venta_Comentarios = dataReader["Nombre"].ToString();
+                                    venta.Id = Convert.ToInt32(dataReader["Id"]);
+                                    venta.Comentarios = dataReader["Nombre"].ToString();
                                     listaObtenerVentas.Add(venta);
                                 }
                             }

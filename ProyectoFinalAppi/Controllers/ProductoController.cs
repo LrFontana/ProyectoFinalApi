@@ -47,11 +47,11 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return ProductoHandler.ModificarProducto(new Producto
                 {
-                    producto_Costo = producto.Costo,
-                    producto_Stock = producto.Stock,
-                    producto_IdUsuario = producto.IdUsuario,
-                    producto_PrecioDeVenta = producto.PrecioDeVenta,
-                    producto_Descipcion = producto.Descripcion,
+                    Costo = producto.Costo,
+                    Stock = producto.Stock,
+                    IdUsuario = producto.IdUsuario,
+                    PrecioDeVenta = producto.PrecioDeVenta,
+                    Descripcion = producto.Descripcion,
                 });
             }
             catch (ModificarErrorException ex)
@@ -67,12 +67,12 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return ProductoHandler.CrearProducto(new Producto
                 {
-                    producto_Id = producto.Id,
-                    producto_Costo = producto.Costo,
-                    producto_Stock = producto.Stock,
-                    producto_IdUsuario = producto.IdUsuario,
-                    producto_PrecioDeVenta = producto.PrecioDeVenta,
-                    producto_Descipcion = producto.Descripcion,
+                    Id = producto.Id,
+                    Costo = producto.Costo,
+                    Stock = producto.Stock,
+                    IdUsuario = producto.IdUsuario,
+                    PrecioDeVenta = producto.PrecioDeVenta,
+                    Descripcion = producto.Descripcion,
                 });
             }
             catch (CrearErrorException ex)

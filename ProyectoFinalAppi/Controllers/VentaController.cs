@@ -47,7 +47,7 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return VentaHandler.ModificarVenta(new Venta
                 {
-                    venta_Comentarios = venta.Comentarios,                    
+                    Comentarios = venta.Comentarios,                    
                 });
             }
             catch (ModificarErrorException ex)
@@ -63,8 +63,8 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return VentaHandler.CrearVenta(new Venta
                 {
-                    venta_Id = venta.Id,
-                    venta_Comentarios = venta.Comentarios,                    
+                    Id = venta.Id,
+                    Comentarios = venta.Comentarios,                    
                 });
             }
             catch (CrearErrorException ex)

@@ -72,9 +72,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.Int) { Value = productoVentadido.productoVendido_Stock });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.VarChar) { Value = productoVentadido.productoVendido_IdProducto });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.VarChar) { Value = productoVentadido.productoVendido_IdVenta });
+                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.Int) { Value = productoVentadido.Stock });
+                        sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.VarChar) { Value = productoVentadido.IdProducto });
+                        sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.VarChar) { Value = productoVentadido.IdVenta });
 
                         int cantidadDeProductosVendidosCreado = sqlCommand.ExecuteNonQuery();
 
@@ -120,9 +120,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = productoVendido.productoVendido_Stock });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.VarChar) { Value = productoVendido.productoVendido_IdProducto });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.VarChar) { Value = productoVendido.productoVendido_IdVenta });
+                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = productoVendido.Stock });
+                        sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.VarChar) { Value = productoVendido.IdProducto });
+                        sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.VarChar) { Value = productoVendido.IdVenta });
 
                         int cantidadDeProductosVendidosModificado = sqlCommand.ExecuteNonQuery();
 
@@ -174,10 +174,10 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {
                                     ProductoVendido productoVendido = new ProductoVendido();
-                                    productoVendido.productoVendido_Id = Convert.ToInt32(dataReader["Id"]);
-                                    productoVendido.productoVendido_Stock = Convert.ToInt32(dataReader["Stock"]);
-                                    productoVendido.productoVendido_IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
-                                    productoVendido.productoVendido_IdVenta = Convert.ToInt32(dataReader["IdVenta"]);
+                                    productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
+                                    productoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
+                                    productoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
+                                    productoVendido.IdVenta = Convert.ToInt32(dataReader["IdVenta"]);
                                     listaObtenerProductosVendidos.Add(productoVendido);
                                 }
                             }
@@ -228,10 +228,10 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {
                                     ProductoVendido productoVendido = new ProductoVendido();
-                                    productoVendido.productoVendido_Id = Convert.ToInt32(dataReader["Id"]);
-                                    productoVendido.productoVendido_Stock = Convert.ToInt32(dataReader["Stock"]);
-                                    productoVendido.productoVendido_IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
-                                    productoVendido.productoVendido_IdVenta = Convert.ToInt32(dataReader["IdVenta"]);
+                                    productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
+                                    productoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
+                                    productoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
+                                    productoVendido.IdVenta = Convert.ToInt32(dataReader["IdVenta"]);
                                     listaObtenerProductosVendidosPorId.Add(productoVendido);
                                 }
                             }

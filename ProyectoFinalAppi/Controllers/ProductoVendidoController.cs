@@ -47,9 +47,9 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return ProductoVendidoHandler.ModificarProductoVendido(new ProductoVendido
                 {
-                    productoVendido_IdProducto = productoVendido.IdProducto,
-                    productoVendido_IdVenta = productoVendido.IdVenta,
-                    productoVendido_Stock = productoVendido.Stock,                    
+                    IdProducto = productoVendido.IdProducto,
+                    IdVenta = productoVendido.IdVenta,
+                    Stock = productoVendido.Stock,                    
                 });
             }
             catch (ModificarErrorException ex)
@@ -65,10 +65,10 @@ namespace ProyectoFinalAppi.Controllers
             {
                 return ProductoVendidoHandler.CrearProductoVendido(new ProductoVendido
                 {
-                    productoVendido_Id = productoVendido.Id,
-                    productoVendido_IdProducto = productoVendido.IdProducto,
-                    productoVendido_IdVenta = productoVendido.IdVenta,
-                    productoVendido_Stock = productoVendido.Stock,
+                    Id = productoVendido.Id,
+                    IdProducto = productoVendido.IdProducto,
+                    IdVenta = productoVendido.IdVenta,
+                    Stock = productoVendido.Stock,
                 });
             }
             catch (CrearErrorException ex)

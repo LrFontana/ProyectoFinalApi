@@ -71,11 +71,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripcion", SqlDbType.VarChar) { Value = producto.producto_Descipcion });
-                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.producto_Costo });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioDeVenta", SqlDbType.BigInt) { Value = producto.producto_PrecioDeVenta });
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.producto_Stock });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.producto_IdUsuario });
+                        sqlCommand.Parameters.Add(new SqlParameter("Descripcion", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
+                        sqlCommand.Parameters.Add(new SqlParameter("PrecioDeVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
+                        sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
                         int cantidadDeProductosCreados = sqlCommand.ExecuteNonQuery();
 
@@ -123,11 +123,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommando = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommando.Parameters.Add(new SqlParameter("Descripcion", SqlDbType.VarChar) { Value = producto.producto_Descipcion });
-                        sqlCommando.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.producto_Costo });
-                        sqlCommando.Parameters.Add(new SqlParameter("PrecioDeVenta", SqlDbType.BigInt) { Value = producto.producto_PrecioDeVenta });
-                        sqlCommando.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.producto_Stock });
-                        sqlCommando.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.producto_IdUsuario });
+                        sqlCommando.Parameters.Add(new SqlParameter("Descripcion", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommando.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
+                        sqlCommando.Parameters.Add(new SqlParameter("PrecioDeVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommando.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
+                        sqlCommando.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
                         int cantidadDeProductosModificados = sqlCommando.ExecuteNonQuery();
 
@@ -178,12 +178,12 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {
                                     Producto producto = new Producto();
-                                    producto.producto_Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.producto_Stock = Convert.ToInt32(dataReader["Stock"]);
-                                    producto.producto_IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
-                                    producto.producto_Costo = Convert.ToInt32(dataReader["Costo"]);
-                                    producto.producto_PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
-                                    producto.producto_Descipcion = dataReader["Descripciones"].ToString();
+                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
+                                    producto.Stock = Convert.ToInt32(dataReader["Stock"]);
+                                    producto.IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
+                                    producto.Costo = Convert.ToInt32(dataReader["Costo"]);
+                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
+                                    producto.Descripcion = dataReader["Descripciones"].ToString();
                                     listaObtenerProductos.Add(producto);
                                 }
                             }
@@ -234,12 +234,12 @@ namespace ProyectoFinalAppi.ADO_.NET
                                 while (dataReader.Read())
                                 {
                                     Producto producto = new Producto();
-                                    producto.producto_Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.producto_Stock = Convert.ToInt32(dataReader["Stock"]);
-                                    producto.producto_IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
-                                    producto.producto_Costo = Convert.ToInt32(dataReader["Costo"]);
-                                    producto.producto_PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
-                                    producto.producto_Descipcion = dataReader["Descripciones"].ToString();
+                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
+                                    producto.Stock = Convert.ToInt32(dataReader["Stock"]);
+                                    producto.IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
+                                    producto.Costo = Convert.ToInt32(dataReader["Costo"]);
+                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
+                                    producto.Descripcion = dataReader["Descripciones"].ToString();
                                     listaObtenerProductosPorId.Add(producto);
                                 }
                             }

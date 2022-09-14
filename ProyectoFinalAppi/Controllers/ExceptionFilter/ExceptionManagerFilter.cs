@@ -21,7 +21,7 @@ namespace ProyectoFinalApi.Controllers.ExecptionFilter
         //Metodo context exception.
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is CrearErrorException && context.Exception is EliminarErrorException && context.Exception is GetErrorException && context.Exception is ModificarErrorException )
+            if (context.Exception is CrearErrorException || context.Exception is EliminarErrorException || context.Exception is GetErrorException || context.Exception is ModificarErrorException )
             {
                 context.Result = new JsonResult("ERROR EN LA APLICACION!" + _hostingEnviroment.ApplicationName +
                 "LA EXCEPCION DEL TIPO: " + context.Exception.GetType());
