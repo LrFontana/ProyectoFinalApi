@@ -290,10 +290,10 @@ namespace ProyectoFinalApi.Models.GetModels
                         if (costoProducto > 1)
                         {
                             Producto producto = new Producto();
-
-                            Console.WriteLine("Por Favor ingrese el nuevo valor de COSTO");
-                            int nuevoValorDeCosto = Convert.ToInt32(Console.ReadLine());
                             producto.Costo = 0;
+
+                            Console.WriteLine("POR FAVOR INGRESE EL NUEVO COSTO");
+                            int nuevoValorDeCosto = Convert.ToInt32(Console.ReadLine());                            
                             producto.Costo = nuevoValorDeCosto;
 
                             Console.WriteLine("EL COSTO DEL PRODUCTO FUE MODIFICADO !");
