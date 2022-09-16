@@ -285,13 +285,13 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         do
                         {
-                            if (password == password)
+                            if (password == password && nombre == nombre)
                             {
                                 logingExitoso = true;
                             }
                             else
                             {
-                                Console.WriteLine("PASWORD INCORRECTA, por favor vuelva a intentarlo");
+                                Console.WriteLine("PASWORD  O NOMBRE INCORRECTO, por favor vuelva a intentarlo");
                             }
 
                             cont++;

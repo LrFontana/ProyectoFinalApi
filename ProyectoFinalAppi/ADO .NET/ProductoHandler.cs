@@ -62,7 +62,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryAdd = "INSERT INTO [SistemaGestion].[dbo].[Producto] (Descripcion, Costo, PrecioDeVenta, Stock, IdUsuario)" +
+                string queryAdd = "INSERT INTO [SistemaGestion].[dbo].[Producto] (Descripciones, Costo, PrecioVenta, Stock, IdUsuario)" +
                     "VALUES(@descripncion, @costo, @precioDeVenta, @stock, @idUsuario)";
 
                 try
@@ -71,9 +71,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripcion", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
                         sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioDeVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
                         sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
                         sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
@@ -123,9 +123,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommando = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommando.Parameters.Add(new SqlParameter("Descripcion", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommando.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
                         sqlCommando.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
-                        sqlCommando.Parameters.Add(new SqlParameter("PrecioDeVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommando.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
                         sqlCommando.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
                         sqlCommando.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 

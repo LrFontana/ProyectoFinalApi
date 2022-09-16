@@ -106,8 +106,7 @@ namespace ProyectoFinalApi.Models.GetModels
                                         {
                                             listaStockProducto.Add(producto);
                                         }
-                                    }
-                                    
+                                    }                                    
                                 }                                
                             }
                             else
@@ -127,7 +126,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaStockProducto;
         }        
 
-        //Obtener prico de venta.
+        //Obtener precio de venta.
         public static List<Producto> GetPricioVentaProducto(int id) 
         {
             //Variable.
@@ -135,7 +134,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryObtenerPrecioDeVenta = "SELECT Id, PrecioDeVenta, Descripcion FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+                string queryObtenerPrecioDeVenta = "SELECT Id, PrecioVenta FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryObtenerPrecioDeVenta, sqlConnection))
                 {
@@ -153,7 +152,7 @@ namespace ProyectoFinalApi.Models.GetModels
                                 {
                                     Producto producto = new Producto();
                                     producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.Costo = Convert.ToInt32(dataReader["Costo"]);                                    
+                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);                                    
                                     listaPrecioDeVentaProducto.Add(producto);
                                 }
                             }
@@ -174,6 +173,148 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaPrecioDeVentaProducto;
         }
 
-        
+        //Obtener descripcion.
+        public static List<Producto> GetDescripcionProducto(int id) 
+        {
+            //Variable.
+            List<Producto> listaDescripcionProducto = new List<Producto>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryObtenerPrecioDeVenta = "SELECT Id, Descripciones FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerPrecioDeVenta, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+
+                    try
+                    {
+                        sqlConnection.Open();
+
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                        {
+                            if (dataReader.HasRows)
+                            {
+                                while (dataReader.Read())
+                                {
+                                    Producto producto = new Producto();
+                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
+                                    producto.Descripcion = dataReader["Descripciones"].ToString();
+                                    listaDescripcionProducto.Add(producto);
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("ERROR EN LA QUERY");
+                            }
+                            dataReader.Close();
+                        }
+                        sqlConnection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            return listaDescripcionProducto;
+        }
+
+        //Obtener Id usuario.
+        public static List<Producto> GetIdUsuarioProducto(int id) 
+        {
+            //Variable.
+            List<Producto> listaIdUsuarioProducto = new List<Producto>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryObtenerPrecioDeVenta = "SELECT Id, IdUsuario FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerPrecioDeVenta, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+
+                    try
+                    {
+                        sqlConnection.Open();
+
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                        {
+                            if (dataReader.HasRows)
+                            {
+                                while (dataReader.Read())
+                                {
+                                    Producto producto = new Producto();
+                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
+                                    producto.IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
+                                    listaIdUsuarioProducto.Add(producto);
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("ERROR EN LA QUERY");
+                            }
+                            dataReader.Close();
+                        }
+                        sqlConnection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            return listaIdUsuarioProducto;
+        }
+
+
+        //Cambiar Costo.
+        public static bool SetCostoProducto(int id) 
+        {
+            //Variable.
+            bool costoSeateado = false;
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryObtenerPrecioDeVenta = "SELECT Costo FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+
+                try
+                {
+                    sqlConnection.Open();
+
+                    using (SqlCommand sqlCommand = new SqlCommand(queryObtenerPrecioDeVenta, sqlConnection))
+                    {
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });                        
+                        int costoProducto = sqlCommand.ExecuteNonQuery();
+
+                        if (costoProducto > 1)
+                        {
+                            Producto producto = new Producto();
+
+                            Console.WriteLine("Por Favor ingrese el nuevo valor de COSTO");
+                            int nuevoValorDeCosto = Convert.ToInt32(Console.ReadLine());
+                            producto.Costo = 0;
+                            producto.Costo = nuevoValorDeCosto;
+
+                            Console.WriteLine("EL COSTO DEL PRODUCTO FUE MODIFICADO !");
+                            costoSeateado = true;
+                        }
+                        else
+                        {
+                            throw new Exception("ERROR EN LA QUERY");
+
+                            costoSeateado =false;
+                        }
+                    }
+                    sqlConnection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message); 
+                }                
+            }
+            return costoSeateado;
+        }        
     }
 }
