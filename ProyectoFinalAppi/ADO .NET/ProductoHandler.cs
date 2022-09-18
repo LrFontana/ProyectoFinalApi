@@ -155,10 +155,6 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener productos.
         public static List<Producto> GetProductos()
         {
-            Console.WriteLine("*****************************************");
-            Console.WriteLine("      MOSTRANDO TODOS LOS PRODUCTOS      ");
-            Console.WriteLine("*****************************************\n");
-
             //Variable.
             List<Producto> listaObtenerProductos = new List<Producto>();
             try
