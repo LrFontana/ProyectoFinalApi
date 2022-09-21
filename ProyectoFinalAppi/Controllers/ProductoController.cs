@@ -15,7 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class ProductoController : ControllerBase
     {
         [HttpGet]
-        public List<Producto> GetProductosPorId([FromBody] int id)
+        public List<Usuario> GetProductosPorId([FromBody] int id)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace ProyectoFinalAppi.Controllers
         {
             try
             {
-                return ProductoHandler.ModificarProducto(new Producto
+                return ProductoHandler.ModificarProducto(new Usuario
                 {
                     Costo = producto.Costo,
                     Stock = producto.Stock,
@@ -65,7 +65,7 @@ namespace ProyectoFinalAppi.Controllers
         {
             try
             {
-                return ProductoHandler.CrearProducto(new Producto
+                return ProductoHandler.CrearProducto(new Usuario
                 {
                     Id = producto.Id,
                     Costo = producto.Costo,

@@ -5,7 +5,7 @@ using System.Data;
 
 namespace ProyectoFinalApi.Models.GetModels
 {
-    public static class ProductoValidaton
+    public static class ProductoValidator
     {
         //Variable.
         public const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
@@ -13,7 +13,53 @@ namespace ProyectoFinalApi.Models.GetModels
 
         //Logica Producto.
 
-        //Obtener costo.
+        //Get Id.
+        public static List<Producto> GetIdProducto(int id) 
+        {
+            //Variable.
+            List<Producto> listaIdProducto = new List<Producto>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryObtenerIdProducto = "SELECT Id FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerIdProducto, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+
+                    try
+                    {
+                        sqlConnection.Open();
+
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                        {
+                            if (dataReader.HasRows)
+                            {
+                                while (dataReader.Read())
+                                {
+                                    Producto producto = new Producto();
+                                    producto.Id = Convert.ToInt32(dataReader["Id"]);                                    
+                                    listaIdProducto.Add(producto);
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("ERROR EN LA QUERY");
+                            }
+                            dataReader.Close();
+                        }
+                        sqlConnection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            return listaIdProducto;
+        }
+
+        //Get costo.
         public static List<Producto> GetCostoProducto(int id)
         {
             //Variable.
@@ -58,9 +104,9 @@ namespace ProyectoFinalApi.Models.GetModels
                 }
             }
             return listaCostoProducto;
-        }           
+        }
 
-        //Obtener stock.
+        //Get stock.
         public static List<Producto> GetStockProducto(int id) 
         {
             //variable.
@@ -87,26 +133,7 @@ namespace ProyectoFinalApi.Models.GetModels
                                     Producto producto = new Producto();
                                     producto.Id = Convert.ToInt32(dataReader["Id"]);
                                     producto.Stock = Convert.ToInt32(dataReader["Stock"]);
-
-                                    if (producto.Stock < 5)
-                                    {
-                                        Console.WriteLine("EL STOCK DE ESTE PRODUCTO ESTA MUY BAJO, DESEA AGREGAR MAS STOCK DE ESTE PRODUCTO?");
-                                        Console.WriteLine("PRESIONE 'Y' PARA AGREGAR STOCK O 'N' PARA SALIR: ");
-                                        string confirmacionAgregarStock = Console.ReadLine();
-                                        if (confirmacionAgregarStock.ToLower() == "y")
-                                        {
-                                            Console.WriteLine("INGRESE LA CANTIDAD DE STOCK QUE DESEA AGREGAR: ");
-                                            int cantidadStock = Convert.ToInt32(Console.ReadLine());
-                                            producto.Stock += cantidadStock;
-
-                                            Console.WriteLine("MOSTRADO LISTA CON STOCK ACTUALIZADO.");
-                                            listaStockProducto.Add(producto);
-                                        }
-                                        else
-                                        {
-                                            listaStockProducto.Add(producto);
-                                        }
-                                    }                                    
+                                    listaStockProducto.Add(producto);
                                 }                                
                             }
                             else
@@ -124,9 +151,9 @@ namespace ProyectoFinalApi.Models.GetModels
                 }
             }
             return listaStockProducto;
-        }        
+        }
 
-        //Obtener precio de venta.
+        //Get precio de venta.
         public static List<Producto> GetPrecioVentaProducto(int id) 
         {
             //Variable.
@@ -173,7 +200,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaPrecioDeVentaProducto;
         }
 
-        //Obtener descripcion.
+        //Get descripcion.
         public static List<Producto> GetDescripcionProducto(int id) 
         {
             //Variable.
@@ -220,7 +247,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaDescripcionProducto;
         }
 
-        //Obtener Id usuario.
+        //Get Id usuario.
         public static List<Producto> GetIdUsuarioProducto(int id) 
         {
             //Variable.
@@ -268,7 +295,7 @@ namespace ProyectoFinalApi.Models.GetModels
         }
 
 
-        //Cambiar Costo.
+        //Set Costo.
         public static bool SetCostoProducto(Producto producto) 
         {
             //Variable.
@@ -289,37 +316,30 @@ namespace ProyectoFinalApi.Models.GetModels
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });                        
                         sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });                        
-                        int costoProducto = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeCostoProducto = sqlCommand.ExecuteNonQuery();
 
-                        if (costoProducto > 1)
-                        {                           
-
-                            Console.WriteLine("POR FAVOR INGRESE EL NUEVO COSTO");
-                            int nuevoCostoProducto = Convert.ToInt32(Console.ReadLine());                            
-                            producto.Costo = nuevoCostoProducto;
-
-                            Console.WriteLine("EL COSTO DEL PRODUCTO FUE MODIFICADO CON EXITO!");
-                            Console.WriteLine($"EL NUEVO COSTO DEL PRODUCTO ES: {producto.Costo}");
+                        if (filasAfectadasDeCostoProducto > 1)
+                        {  
+                            Console.WriteLine("EL COSTO DEL PRODUCTO FUE MODIFICADO CON EXITO!");                            
                             costoSeateado = true;
                         }
                         else
                         {
                             throw new Exception("ERROR EN LA QUERY");
-                            costoSeateado =false;
+                            costoSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
                 catch (Exception ex)
                 {
-
                     Console.WriteLine(ex.Message); 
                 }                
             }
             return costoSeateado;
-        }        
+        }
 
-        //Cambiar stock.
+        //Set stock.
         public static bool SetStockProducto(Producto producto) 
         {
             //Variable.
@@ -340,16 +360,11 @@ namespace ProyectoFinalApi.Models.GetModels
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
                         sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
-                        int stockProducto = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeStockProducto = sqlCommand.ExecuteNonQuery();
 
-                        if (stockProducto > 1)
+                        if (filasAfectadasDeStockProducto > 1)
                         {
-                            Console.WriteLine("POR FAVOR INGRESE UNA NUEVA CANTIDAD DE STOCK: ");
-                            int nuevoStockProducto = Convert.ToInt32(Console.ReadLine());
-                            producto.Stock += nuevoStockProducto;
-
-                            Console.WriteLine("STOCK CAMBIADO CON EXITO!!");
-                            Console.WriteLine($"EL NUEVO STOCK DEL PRODUCTO ES: {producto.Stock}");
+                            Console.WriteLine("STOCK CAMBIADO CON EXITO!!");                            
                             stockSeateado = true;
                         }
                         else
@@ -368,7 +383,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return stockSeateado;
         }
 
-        //Cambiar precio de venta.
+        //Set precio de venta.
         public static bool SetPrecioVentaProducto(Producto producto) 
         {
             //Variable.
@@ -389,16 +404,11 @@ namespace ProyectoFinalApi.Models.GetModels
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
                         sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
-                        int precioVentaProducto = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDePrecioVentaProducto = sqlCommand.ExecuteNonQuery();
 
-                        if (precioVentaProducto > 1)
+                        if (filasAfectadasDePrecioVentaProducto > 1)
                         {
-                            Console.WriteLine("POR FAVOR INGRESE UN NUEVO PRECIO DE VENTA: ");
-                            int nuevoPrecioVentaProducto = Convert.ToInt32(Console.ReadLine());
-                            producto.Stock = nuevoPrecioVentaProducto;
-
-                            Console.WriteLine("PRECIO DE VENTA CAMBIADO CON EXITO!!");
-                            Console.WriteLine($"EL NUEVO PRECIO DE VENTA DEL PRODUCTO ES: {producto.PrecioDeVenta}");
+                            Console.WriteLine("PRECIO DE VENTA CAMBIADO CON EXITO!!");                            
                             precioVentaSeateado = true;
                         }
                         else
@@ -417,7 +427,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return precioVentaSeateado;
         }
 
-        //Cambiar descripcion.
+        //Set descripcion.
         public static bool SetDescripcionProducto(Producto producto) 
         {
             //Variable.
@@ -438,16 +448,11 @@ namespace ProyectoFinalApi.Models.GetModels
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
                         sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
-                        int precioVentaProducto = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeDescripcionProducto = sqlCommand.ExecuteNonQuery();
 
-                        if (precioVentaProducto > 1)
+                        if (filasAfectadasDeDescripcionProducto > 1)
                         {
-                            Console.WriteLine("POR FAVOR INGRESE UNA NUEVA DESCRIPCION ");
-                            String nuevaDescripcionProducto = Console.ReadLine();
-                            producto.Descripcion = nuevaDescripcionProducto;
-
-                            Console.WriteLine("DESCRIPCION CAMBIADA CON EXITO!!");
-                            Console.WriteLine($"LA NUEVA DESCRIPCION DEL PRODUCTO ES: {producto.Descripcion}");
+                            Console.WriteLine("DESCRIPCION CAMBIADA CON EXITO!!");                            
                             descripcionSeateado = true;
                         }
                         else
@@ -466,7 +471,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return descripcionSeateado;
         }
 
-        //Cambiar id usuario.
+        //Set id usuario.
         public static bool SetIdUsuarioProducto(Producto producto) 
         {
             //Variable.
@@ -474,7 +479,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string querySetiDuSUARIOProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
+                string querySetIdUsuarioProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
                         "Categorias = @idUsuario" +
                     "WHERE Codigo = @id"; ;
@@ -483,20 +488,15 @@ namespace ProyectoFinalApi.Models.GetModels
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(querySetiDuSUARIOProducto, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(querySetIdUsuarioProducto, sqlConnection))
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
                         sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = producto.IdUsuario });
-                        int idUsuarioProducto = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeIdUsuarioProducto = sqlCommand.ExecuteNonQuery();
 
-                        if (idUsuarioProducto > 1)
+                        if (filasAfectadasDeIdUsuarioProducto > 1)
                         {
-                            Console.WriteLine("POR FAVOR INGRESE EL NUEVO ID USUARIO: ");
-                            int nuevoIdUsuarioProducto = Convert.ToInt32(Console.ReadLine());
-                            producto.IdUsuario = nuevoIdUsuarioProducto;
-
-                            Console.WriteLine("ID USUARIO CAMBIADO CON EXITO!!");
-                            Console.WriteLine($"EL NUEVO ID USUARIO DEL PRODUCTO ES: {producto.IdUsuario}");
+                            Console.WriteLine("ID DE USUARIO CAMBIADO CON EXITO!!");                            
                             idUsuarioSeateado = true;
                         }
                         else

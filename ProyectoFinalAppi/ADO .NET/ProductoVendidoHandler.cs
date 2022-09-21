@@ -32,9 +32,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                     {
                         sqlCommand.Parameters.Add(sqlParameter);
 
-                        int cantidadDeProductosVendidosBorrado = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeProductosVendidosBorrado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductosVendidosBorrado > 1)
+                        if (filasAfectadasDeProductosVendidosBorrado > 1)
                         {
                             Console.WriteLine("PRODUCTO VENDIDO ELIMINADO CON EXITO!");
                             return productoVendidoEliminado = true;
@@ -76,9 +76,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.VarChar) { Value = productoVentadido.IdProducto });
                         sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.VarChar) { Value = productoVentadido.IdVenta });
 
-                        int cantidadDeProductosVendidosCreado = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeProductosVendidosCreado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductosVendidosCreado > 1)
+                        if (filasAfectadasDeProductosVendidosCreado > 1)
                         {
                             Console.WriteLine("RODUCTO VENDIDO CREADO CON EXITO!");
                             return productoVendidoCreado = true;
@@ -124,9 +124,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.VarChar) { Value = productoVendido.IdProducto });
                         sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.VarChar) { Value = productoVendido.IdVenta });
 
-                        int cantidadDeProductosVendidosModificado = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeProductoVendidosModificado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductosVendidosModificado > 1)
+                        if (filasAfectadasDeProductoVendidosModificado > 1)
                         {
                             Console.WriteLine("PRODUCTO VENDIDO MODIFICADO CON EXITO!");
                             return productoVendidoModificado = true;

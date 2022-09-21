@@ -32,9 +32,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                     using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
                     {
                         sqlCommand.Parameters.Add(sqlParameter);
-                        int cantidadDeUsuariosEliminado = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeUsuarioEliminado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeUsuariosEliminado > 1)
+                        if (filasAfectadasDeUsuarioEliminado > 1)
                         {
                             Console.WriteLine("USUARIO ELIMINADO CON EXITO!");
                             usuarioEliminado = true;
@@ -79,9 +79,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Password });
                         sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
 
-                        int cantidadDeUsuariosCreados = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeUsuarioCreado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeUsuariosCreados > 1)
+                        if (filasAfectadasDeUsuarioCreado > 1)
                         {
                             Console.WriteLine("USUARIO CREADO CON EXITO!");
                             return usuarioCreado = true;
@@ -131,9 +131,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Password });
                         sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
 
-                        int cantidadDeUsuariosModificados = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeUsuarioModificado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeUsuariosModificados > 1)
+                        if (filasAfectadasDeUsuarioModificado > 1)
                         {
                             Console.WriteLine("USUARIO CREADO CON EXITO!");
                             return usuarioModificado = true;

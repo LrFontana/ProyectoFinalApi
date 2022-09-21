@@ -31,9 +31,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
-                        int cantidadDeProductosEliminados = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeProductosEliminado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductosEliminados > 1)
+                        if (filasAfectadasDeProductosEliminado > 1)
                         {
                             Console.WriteLine("PRODUCTO ELIMINADO CON EXITO!");
                             return productoEliminado = true;
@@ -77,9 +77,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
                         sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
-                        int cantidadDeProductosCreados = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeProductosCreado = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeProductosCreados > 1)
+                        if (filasAfectadasDeProductosCreado > 1)
                         {
                             Console.WriteLine("PRODUCTO CREADO CON EXITO!");
                             return productoCreado = true;
@@ -129,9 +129,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommando.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
                         sqlCommando.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
-                        int cantidadDeProductosModificados = sqlCommando.ExecuteNonQuery();
+                        int filasAfectadasDeProductosModificado = sqlCommando.ExecuteNonQuery();
 
-                        if (cantidadDeProductosModificados > 1)
+                        if (filasAfectadasDeProductosModificado > 1)
                         {
                             Console.WriteLine("PRODUCTO MODIFICADO CON EXITO!");
                             return productoModificado = true;

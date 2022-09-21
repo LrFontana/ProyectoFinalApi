@@ -34,9 +34,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                         sqlCommand.Parameters.Add(sqlParameter);
 
-                        int cantidadDeVentasEliminadas = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeVentaEliminada = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeVentasEliminadas > 1)
+                        if (filasAfectadasDeVentaEliminada > 1)
                         {
                             Console.WriteLine("VENTA ELIMINADA CON EXITO!");
                             return ventaEliminada = true;
@@ -77,9 +77,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = venta.Comentarios });
 
-                        int cantidadDeVentasCreadas = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeVentaCreada = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeVentasCreadas > 1)
+                        if (filasAfectadasDeVentaCreada > 1)
                         {
                             Console.WriteLine("VENTA CREADA CON EXITO!");
                             return ventaCreada = true;
@@ -122,9 +122,9 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = venta.Id });
                         sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = venta.Comentarios });
 
-                        int cantidadDeVentasModificadas = sqlCommand.ExecuteNonQuery();
+                        int filasAfectadasDeVentaModificada = sqlCommand.ExecuteNonQuery();
 
-                        if (cantidadDeVentasModificadas > 1)
+                        if (filasAfectadasDeVentaModificada > 1)
                         {
                             Console.WriteLine("VENTA MODIFICADA CON EXITO!");
                             return ventaModificada = true;
