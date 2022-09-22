@@ -1,29 +1,28 @@
 ﻿using Microsoft.Data.SqlClient;
-using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
-namespace ProyectoFinalApi.Models.GetModels
+namespace ProyectoFinalApi.Models.ModelsValidaton
 {
-    public static class ProductoValidator
+    public class UsuarioValidator
     {
         //Variable.
-        public const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
-        
+        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
 
-        //Logica Producto.
+
+        //Logica Usuario.
 
         //Get Id.
-        public static List<Producto> GetIdProducto(int id) 
+        public static List<Usuario> GetIdUsuario(int id)
         {
             //Variable.
-            List<Producto> listaIdProducto = new List<Producto>();
+            List<Usuario> listaIdUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryObtenerIdProducto = "SELECT Id FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+                string queryGetIdUsuario = "SELECT Id FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
-                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerIdProducto, sqlConnection))
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetIdUsuario, sqlConnection))
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
@@ -37,9 +36,9 @@ namespace ProyectoFinalApi.Models.GetModels
                             {
                                 while (dataReader.Read())
                                 {
-                                    Producto producto = new Producto();
-                                    producto.Id = Convert.ToInt32(dataReader["Id"]);                                    
-                                    listaIdProducto.Add(producto);
+                                    Usuario usuarios = new Usuario();
+                                    usuarios.Id = Convert.ToInt32(dataReader["Id"]);
+                                    listaIdUsuario.Add(usuarios);
                                 }
                             }
                             else
@@ -56,20 +55,20 @@ namespace ProyectoFinalApi.Models.GetModels
                     }
                 }
             }
-            return listaIdProducto;
+            return listaIdUsuario;
         }
 
-        //Get costo.
-        public static List<Producto> GetCostoProducto(int id)
+        //Get nombre.
+        public static List<Usuario> GetNombreUsuario(int id)
         {
             //Variable.
-            List<Producto> listaCostoProducto = new List<Producto>();
+            List<Usuario> listaNombreUsuario = new List<Usuario>();
 
-            using(SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryObtenerCostoProducto = "SELECT Id, Costo, Descripciones FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+                string queryGetNombreUsuario = "SELECT Id, Nombre FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
-                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerCostoProducto, sqlConnection)) 
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetNombreUsuario, sqlConnection))
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
@@ -83,10 +82,10 @@ namespace ProyectoFinalApi.Models.GetModels
                             {
                                 while (dataReader.Read())
                                 {
-                                    Producto producto = new Producto();
-                                    producto.Id = Convert.ToInt32(dataReader["Id"]);                                    
-                                    producto.Costo = Convert.ToInt32(dataReader["Costo"]);                                    
-                                    listaCostoProducto.Add(producto);
+                                    Usuario usuario = new Usuario();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.Nombre = dataReader["Nombre"].ToString();
+                                    listaNombreUsuario.Add(usuario);
                                 }
                             }
                             else
@@ -103,20 +102,20 @@ namespace ProyectoFinalApi.Models.GetModels
                     }
                 }
             }
-            return listaCostoProducto;
+            return listaNombreUsuario;
         }
 
-        //Get stock.
-        public static List<Producto> GetStockProducto(int id) 
+        //Get apellido.
+        public static List<Usuario> GetApellidoUsuario(int id)
         {
             //variable.
-            List<Producto> listaStockProducto = new List<Producto>();
+            List<Usuario> listaApellidoUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryObtenerStockProducto = "SELECT Id, Stock FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+                string queryGetApellidoUsuario = "SELECT Id, Apellido FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
-                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerStockProducto, sqlConnection))
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetApellidoUsuario, sqlConnection))
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
@@ -130,57 +129,10 @@ namespace ProyectoFinalApi.Models.GetModels
                             {
                                 while (dataReader.Read())
                                 {
-                                    Producto producto = new Producto();
-                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.Stock = Convert.ToInt32(dataReader["Stock"]);
-                                    listaStockProducto.Add(producto);
-                                }                                
-                            }
-                            else
-                            {
-                                throw new Exception("ERROR EN LA QUERY");
-                            }
-                            dataReader.Close();
-                        }
-                        sqlConnection.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-            }
-            return listaStockProducto;
-        }
-
-        //Get precio de venta.
-        public static List<Producto> GetPrecioVentaProducto(int id) 
-        {
-            //Variable.
-            List<Producto> listaPrecioDeVentaProducto = new List<Producto>();
-
-            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
-            {
-                string queryObtenerPrecioDeVenta = "SELECT Id, PrecioVenta FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
-
-                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerPrecioDeVenta, sqlConnection))
-                {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
-
-                    try
-                    {
-                        sqlConnection.Open();
-
-                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
-                        {
-                            if (dataReader.HasRows)
-                            {
-                                while (dataReader.Read())
-                                {
-                                    Producto producto = new Producto();
-                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);                                    
-                                    listaPrecioDeVentaProducto.Add(producto);
+                                    Usuario usuario = new Usuario();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.Apellido = dataReader["Stock"].ToString();
+                                    listaApellidoUsuario.Add(usuario);
                                 }
                             }
                             else
@@ -197,20 +149,20 @@ namespace ProyectoFinalApi.Models.GetModels
                     }
                 }
             }
-            return listaPrecioDeVentaProducto;
+            return listaApellidoUsuario;
         }
 
-        //Get descripcion.
-        public static List<Producto> GetDescripcionProducto(int id) 
+        //Get nombre de usuario.
+        public static List<Usuario> GetNombreDeUsuario(int id)
         {
             //Variable.
-            List<Producto> listaDescripcionProducto = new List<Producto>();
+            List<Usuario> listaNombreDeUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryObtenerDescripcionProducto = "SELECT Id, Descripciones FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+                string queryGetNombreDeUsuario = "SELECT Id, NombreUsuario FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
-                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerDescripcionProducto, sqlConnection))
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetNombreDeUsuario, sqlConnection))
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
@@ -224,10 +176,10 @@ namespace ProyectoFinalApi.Models.GetModels
                             {
                                 while (dataReader.Read())
                                 {
-                                    Producto producto = new Producto();
-                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.Descripcion = dataReader["Descripciones"].ToString();
-                                    listaDescripcionProducto.Add(producto);
+                                    Usuario usuario = new Usuario();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
+                                    listaNombreDeUsuario.Add(usuario);
                                 }
                             }
                             else
@@ -244,20 +196,20 @@ namespace ProyectoFinalApi.Models.GetModels
                     }
                 }
             }
-            return listaDescripcionProducto;
+            return listaNombreDeUsuario;
         }
 
-        //Get Id usuario.
-        public static List<Producto> GetIdUsuarioProducto(int id) 
+        //Get mail.
+        public static List<Usuario> GetMailUsuario(int id)
         {
             //Variable.
-            List<Producto> listaIdUsuarioProducto = new List<Producto>();
+            List<Usuario> listaMailUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryObtenerUsuarioIdProducto = "SELECT Id, IdUsuario FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
+                string queryGetMailUsuario = "SELECT Id, Mail FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
-                using (SqlCommand sqlCommand = new SqlCommand(queryObtenerUsuarioIdProducto, sqlConnection))
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetMailUsuario, sqlConnection))
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
 
@@ -271,10 +223,10 @@ namespace ProyectoFinalApi.Models.GetModels
                             {
                                 while (dataReader.Read())
                                 {
-                                    Producto producto = new Producto();
-                                    producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
-                                    listaIdUsuarioProducto.Add(producto);
+                                    Usuario usuario = new Usuario();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.Mail = dataReader["Mail"].ToString();
+                                    listaMailUsuario.Add(usuario);
                                 }
                             }
                             else
@@ -291,86 +243,133 @@ namespace ProyectoFinalApi.Models.GetModels
                     }
                 }
             }
-            return listaIdUsuarioProducto;
+            return listaMailUsuario;
+        }
+
+        //Get password.
+        public static List<Usuario> GetPasswordUsuario(int id)
+        {
+            //Variable.
+            List<Usuario> listaPasswordUsuario = new List<Usuario>();
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryGetPasswordUsuario = "SELECT Id, Contraseña FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryGetPasswordUsuario, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+
+                    try
+                    {
+                        sqlConnection.Open();
+
+                        using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                        {
+                            if (dataReader.HasRows)
+                            {
+                                while (dataReader.Read())
+                                {
+                                    Usuario usuario = new Usuario();
+                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    usuario.Password = dataReader["Contraseña"].ToString();
+                                    listaPasswordUsuario.Add(usuario);
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("ERROR EN LA QUERY");
+                            }
+                            dataReader.Close();
+                        }
+                        sqlConnection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            return listaPasswordUsuario;
         }
 
 
         //Set Costo.
-        public static bool SetCostoProducto(Producto producto) 
+        public static bool SetNombreUsiario(Usuario Usuario)
         {
             //Variable.
-            bool costoSeateado = false;
+            bool nombreSeteado = false;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string querySetCostoProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
+                string querySetNombreUsuaurio = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Costo = @costo" +
+                        "Nombre = @nombre" +
                     "WHERE Codigo = @id"; ;
 
                 try
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(querySetCostoProducto, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(querySetNombreUsuaurio, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });                        
-                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });                        
-                        int filasAfectadasDeCostoProducto = sqlCommand.ExecuteNonQuery();
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = Usuario.Id });
+                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = Usuario.Nombre });
+                        int filasAfectadasDeNombreUsuario = sqlCommand.ExecuteNonQuery();
 
-                        if (filasAfectadasDeCostoProducto > 1)
-                        {  
-                            Console.WriteLine("EL COSTO DEL PRODUCTO FUE MODIFICADO CON EXITO!");                            
-                            costoSeateado = true;
+                        if (filasAfectadasDeNombreUsuario > 1)
+                        {
+                            Console.WriteLine("NOMBRE MODIFICADO CON EXITO!");
+                            nombreSeteado = true;
                         }
                         else
                         {
                             throw new Exception("ERROR EN LA QUERY");
-                            costoSeateado = false;
+                            nombreSeteado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message); 
-                }                
+                    Console.WriteLine(ex.Message);
+                }
             }
-            return costoSeateado;
+            return nombreSeteado;
         }
 
         //Set stock.
-        public static bool SetStockProducto(Producto producto) 
+        public static bool SetApellidoUsuario(Usuario usuario)
         {
             //Variable.
-            bool stockSeateado = false;
+            bool apellidoSeteado = false;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string querySetStockProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
-                    "SET " +                        
-                        "Stock = @stock" +                        
+                string querySetApellidoUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
+                    "SET " +
+                        "Apellido = @apellido" +
                     "WHERE Codigo = @id"; ;
 
                 try
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(querySetStockProducto, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(querySetApellidoUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
-                        int filasAfectadasDeStockProducto = sqlCommand.ExecuteNonQuery();
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
+                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = usuario.Apellido });
+                        int filasAfectadasDeApellidoUsuario = sqlCommand.ExecuteNonQuery();
 
-                        if (filasAfectadasDeStockProducto > 1)
+                        if (filasAfectadasDeApellidoUsuario > 1)
                         {
-                            Console.WriteLine("STOCK CAMBIADO CON EXITO!!");                            
-                            stockSeateado = true;
+                            Console.WriteLine("APELLIDO CAMBIADO CON EXITO!!");
+                            apellidoSeteado = true;
                         }
                         else
                         {
                             throw new Exception("ERROR EN LA QUERY");
-                            stockSeateado = false;
+                            apellidoSeteado = false;
                         }
                     }
                     sqlConnection.Close();
@@ -380,41 +379,41 @@ namespace ProyectoFinalApi.Models.GetModels
                     Console.WriteLine(ex.Message);
                 }
             }
-            return stockSeateado;
+            return apellidoSeteado;
         }
 
         //Set precio de venta.
-        public static bool SetPrecioVentaProducto(Producto producto) 
+        public static bool SetNombreDeUsuario(Usuario usuario)
         {
             //Variable.
-            bool precioVentaSeateado = false;
+            bool nombreDeUsuarioSeateado = false;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string querySetPrecioVentaProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
+                string querySetNombreDeUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "PrecioVenta = @precioDeVenta" +
+                        "NombreUsuario = @nombreUsuario" +
                     "WHERE Codigo = @id"; ;
 
                 try
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(querySetPrecioVentaProducto, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(querySetNombreDeUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
-                        int filasAfectadasDePrecioVentaProducto = sqlCommand.ExecuteNonQuery();
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
+                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
+                        int filasAfectadasDeNombreDeUsuario = sqlCommand.ExecuteNonQuery();
 
-                        if (filasAfectadasDePrecioVentaProducto > 1)
+                        if (filasAfectadasDeNombreDeUsuario > 1)
                         {
-                            Console.WriteLine("PRECIO DE VENTA CAMBIADO CON EXITO!!");                            
-                            precioVentaSeateado = true;
+                            Console.WriteLine("NOMBRE DE USUARIO CAMBIADO CON EXITO!!");
+                            nombreDeUsuarioSeateado = true;
                         }
                         else
                         {
                             throw new Exception("ERROR EN LA QUERY");
-                            precioVentaSeateado = false;
+                            nombreDeUsuarioSeateado = false;
                         }
                     }
                     sqlConnection.Close();
@@ -424,41 +423,41 @@ namespace ProyectoFinalApi.Models.GetModels
                     Console.WriteLine(ex.Message);
                 }
             }
-            return precioVentaSeateado;
+            return nombreDeUsuarioSeateado;
         }
 
         //Set descripcion.
-        public static bool SetDescripcionProducto(Producto producto) 
+        public static bool SetMailUsuario(Usuario usuario)
         {
             //Variable.
-            bool descripcionSeateado = false;
+            bool mailSeateado = false;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string querySetDescripcionProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
+                string querySetMailUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Descripciones = @descripcion" +
+                        "Mail = @mail" +
                     "WHERE Codigo = @id"; ;
 
                 try
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(querySetDescripcionProducto, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(querySetMailUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
-                        int filasAfectadasDeDescripcionProducto = sqlCommand.ExecuteNonQuery();
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
+                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = usuario.Mail });
+                        int filasAfectadasDeMailUsuario = sqlCommand.ExecuteNonQuery();
 
-                        if (filasAfectadasDeDescripcionProducto > 1)
+                        if (filasAfectadasDeMailUsuario > 1)
                         {
-                            Console.WriteLine("DESCRIPCION CAMBIADA CON EXITO!!");                            
-                            descripcionSeateado = true;
+                            Console.WriteLine("MAIL CAMBIADO CON EXITO!!");
+                            mailSeateado = true;
                         }
                         else
                         {
                             throw new Exception("ERROR EN LA QUERY");
-                            descripcionSeateado = false;
+                            mailSeateado = false;
                         }
                     }
                     sqlConnection.Close();
@@ -468,41 +467,41 @@ namespace ProyectoFinalApi.Models.GetModels
                     Console.WriteLine(ex.Message);
                 }
             }
-            return descripcionSeateado;
+            return mailSeateado;
         }
 
         //Set id usuario.
-        public static bool SetIdUsuarioProducto(Producto producto) 
+        public static bool SetPasswordUsuario(Usuario usuario)
         {
             //Variable.
-            bool idUsuarioSeateado = false;
+            bool passwordSeateado = false;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string querySetIdUsuarioProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
+                string querySetPasswordUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Categorias = @idUsuario" +
+                        "Contraseña = @password" +
                     "WHERE Codigo = @id"; ;
 
                 try
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(querySetIdUsuarioProducto, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(querySetPasswordUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = producto.IdUsuario });
-                        int filasAfectadasDeIdUsuarioProducto = sqlCommand.ExecuteNonQuery();
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
+                        sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = usuario.Password });
+                        int filasAfectadasDePasswordUsuario = sqlCommand.ExecuteNonQuery();
 
-                        if (filasAfectadasDeIdUsuarioProducto > 1)
+                        if (filasAfectadasDePasswordUsuario > 1)
                         {
-                            Console.WriteLine("ID DE USUARIO CAMBIADO CON EXITO!!");                            
-                            idUsuarioSeateado = true;
+                            Console.WriteLine("CONTRASE{A CAMBIADA CON EXITO!!");
+                            passwordSeateado = true;
                         }
                         else
                         {
                             throw new Exception("ERROR EN LA QUERY");
-                            idUsuarioSeateado = false;
+                            passwordSeateado = false;
                         }
                     }
                     sqlConnection.Close();
@@ -512,7 +511,7 @@ namespace ProyectoFinalApi.Models.GetModels
                     Console.WriteLine(ex.Message);
                 }
             }
-            return idUsuarioSeateado;
+            return passwordSeateado;
         }
     }
 }
