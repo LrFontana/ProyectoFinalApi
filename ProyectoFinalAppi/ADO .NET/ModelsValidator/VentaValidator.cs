@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ProyectoFinalApi.ADO_.NET.Error.ValidatorErrors;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
@@ -43,13 +44,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new VentaValidatorError("ERROR AL INTENTAR OBTENER EL ID, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (VentaValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -90,13 +91,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new VentaValidatorError("ERROR AL INTENTAR OBTENER LOS COMENTARIOS, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (VentaValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -135,13 +136,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new VentaValidatorError("ERROR AL INTENTAR CAMBIAR LOS COMENTARIOS, POR FAVOR VERIFIQUE LA QUERY!");
                             comentariosVentaSeteado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (VentaValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }

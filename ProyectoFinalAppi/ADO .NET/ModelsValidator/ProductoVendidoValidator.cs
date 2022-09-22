@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ProyectoFinalApi.ADO_.NET.Error.ValidatorErrors;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
@@ -20,7 +21,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetValidarProductoVendido = "SELECT * FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
+                string queryGetValidarProductoVendido = "SELECT Id FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetValidarProductoVendido, sqlConnection))
                 {
@@ -43,13 +44,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoVendidoValidatorError("ERROR AL INTENTAR OBTENER EL ID, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoVendidoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -59,7 +60,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get id producto.
-        public static List<ProductoVendido> GetIdProducto(int id)
+        public static List<ProductoVendido> GetIdProductoDeProductoVendido(int id)
         {
             //Variable.
             List<ProductoVendido> listaIdProductoVendido = new List<ProductoVendido>();
@@ -90,13 +91,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoVendidoValidatorError("ERROR AL INTENTAR OBTENER EL ID PRODUCTO, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoVendidoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -106,7 +107,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get id venta.
-        public static List<ProductoVendido> GetIdVentaProducto(int id)
+        public static List<ProductoVendido> GetIdVentaDeProductoVendido(int id)
         {
             //variable.
             List<ProductoVendido> listaIdVentaDeProductoVendio = new List<ProductoVendido>();
@@ -137,13 +138,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoVendidoValidatorError("ERROR AL INTENTAR OBTENER EL ID VENTA, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoVendidoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -152,7 +153,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             return listaIdVentaDeProductoVendio;
         }
 
-        //Get precio de venta.
+        //Get stock.
         public static List<ProductoVendido> GetStockProductoVendido(int id)
         {
             //Variable.
@@ -184,13 +185,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoVendidoValidatorError("ERROR AL INTENTAR CAMBIAR EL STOCK, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoVendidoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -200,7 +201,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Set id producto.
-        public static bool SetIdProductoDePRoductoVendido(ProductoVendido productoVendido)
+        public static bool SetIdProductoDeProductoVendido(ProductoVendido productoVendido)
         {
             //Variable.
             bool idProductoSeateado = false;
@@ -224,12 +225,12 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                         if (filasAfectadasDeCostoProducto > 1)
                         {
-                            Console.WriteLine("EL 'ID PRODUCTO' FUE MODIFICADO CON EXITO!");
+                            Console.WriteLine("EL ID PRODUCTO FUE MODIFICADO CON EXITO!");
                             idProductoSeateado = true;
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new Exception("ERROR AL INTENTAR CAMBIAR EL ID PRODUCTO, POR FAVOR VERIFIQUE LA QUERY!");
                             idProductoSeateado = false;
                         }
                     }
@@ -268,18 +269,18 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                         if (filasAfectadasDeStockProducto > 1)
                         {
-                            Console.WriteLine("EL 'ID VENTA' CAMBIADO CON EXITO!!");
+                            Console.WriteLine("EL ID VENTA CAMBIADO CON EXITO!!");
                             idVentaSeateado = true;
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoVendidoValidatorError("ERROR AL INTENTAR CAMBIAR EL ID VENTA, POR FAVOR VERIFIQUE LA QUERY!");
                             idVentaSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoVendidoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -287,7 +288,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             return idVentaSeateado;
         }
 
-        //Set precio de venta.
+        //Set stock.
         public static bool SetStockProductoVendido (ProductoVendido productoVendido)
         {
             //Variable.
@@ -317,13 +318,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoVendidoValidatorError("ERROR AL INTENTAR CAMBIAR EL STOCK, POR FAVOR VERIFIQUE LA QUERY!");
                             stockDeProductoVendidoSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoVendidoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }

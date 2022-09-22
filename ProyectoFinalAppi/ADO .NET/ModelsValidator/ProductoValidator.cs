@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
-using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
+using
 using System.Data;
+using ProyectoFinalApi.ADO_.NET.Error.ValidatorErrors;
 
 namespace ProyectoFinalApi.Models.GetModels
 {
@@ -44,13 +45,13 @@ namespace ProyectoFinalApi.Models.GetModels
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoValidatorError("ERROR AL INTENTAR OBTENER EL ID, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -91,13 +92,13 @@ namespace ProyectoFinalApi.Models.GetModels
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoValidatorError("ERROR AL INTENTAR OBTENER EL COSTO, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -138,13 +139,13 @@ namespace ProyectoFinalApi.Models.GetModels
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoValidatorError("ERROR AL INTENTAR OBTENER EL STOCK, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -185,13 +186,13 @@ namespace ProyectoFinalApi.Models.GetModels
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoValidatorError("ERROR AL INTENTAR OBTENER EL PRECIO DE VENTA, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -232,13 +233,13 @@ namespace ProyectoFinalApi.Models.GetModels
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoValidatorError("ERROR AL INTENTAR OBTENER LA DESCRIPCION, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -279,13 +280,13 @@ namespace ProyectoFinalApi.Models.GetModels
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new ProductoValidatorError("ERROR AL INTENTAR OBTENER EL ID USUARIO, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (ProductoValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -325,13 +326,13 @@ namespace ProyectoFinalApi.Models.GetModels
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoValidatorError("ERROR AL INTENTAR CAMBIAR EL COSTO, POR FAVOR VERIFIQUE LA QUERY!");
                             costoSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message); 
                 }                
@@ -369,13 +370,13 @@ namespace ProyectoFinalApi.Models.GetModels
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoValidatorError("ERROR AL INTENTAR CAMBIAR EL STOCK, POR FAVOR VERIFIQUE LA QUERY!");
                             stockSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -413,13 +414,13 @@ namespace ProyectoFinalApi.Models.GetModels
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoValidatorError("ERROR AL INTENTAR CAMBIAR EL PRECIO DE VENTA, POR FAVOR VERIFIQUE LA QUERY!");
                             precioVentaSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -457,13 +458,13 @@ namespace ProyectoFinalApi.Models.GetModels
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoValidatorError("ERROR AL INTENTAR CAMBIAR LA DESCRIPCION, POR FAVOR VERIFIQUE LA QUERY!");
                             descripcionSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -501,13 +502,13 @@ namespace ProyectoFinalApi.Models.GetModels
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new ProductoValidatorError("ERROR AL INTENTAR CAMBIAR EL ID USUARIO, POR FAVOR VERIFIQUE LA QUERY!");
                             idUsuarioSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (ProductoValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }

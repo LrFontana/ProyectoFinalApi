@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using ProyectoFinalApi.ADO_.NET.Error.ValidatorErrors;
 using ProyectoFinalAppi.Models;
 using System.Data;
 
@@ -43,13 +44,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new UsuarioValidatorError("ERROR AL INTENTAR OBTENER EL ID, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (UsuarioValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -90,13 +91,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new UsuarioValidatorError("ERROR AL INTENTAR OBTENER EL NOMBRE, POR FAVOR VERIFIQUE LA QUERY!");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (UsuarioValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -137,13 +138,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new UsuarioValidatorError("ERROR AL INTENTAR OBTENER EL APELLIDO, POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (UsuarioValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -184,13 +185,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new UsuarioValidatorError("ERROR AL INTENTAR OBTENER EL NOMBRE DE USUARIO, POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (UsuarioValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -231,13 +232,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new UsuarioValidatorError("ERROR AL INTENTAR OBTENER EL MAIL, POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (UsuarioValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -278,13 +279,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                             }
                             else
                             {
-                                throw new Exception("ERROR EN LA QUERY");
+                                throw new UsuarioValidatorError("ERROR AL INTENTAR OBTENER LA CONTRASEÑA, POR FAVOR VERIFIQUE LA QUERY");
                             }
                             dataReader.Close();
                         }
                         sqlConnection.Close();
                     }
-                    catch (Exception ex)
+                    catch (UsuarioValidatorError ex)
                     {
                         Console.WriteLine(ex.Message);
                     }
@@ -324,13 +325,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new UsuarioValidatorError("ERROR AL INTENTAR CAMBIAR EL NOMBRE, POR FAVOR VERIFIQUE LA QUERY!");
                             nombreSeteado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (UsuarioValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -368,13 +369,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new UsuarioValidatorError("ERROR AL INTENTAR CAMBIAR EL APELLIDO, POR FAVOR VERIFIQUE LA QUERY!");
                             apellidoSeteado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (UsuarioValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -412,13 +413,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new UsuarioValidatorError("ERROR AL INTENTAR CAMBIAR EL NOMBRE DE USUARIO, POR FAVOR VERIFIQUE LA QUERY!");
                             nombreDeUsuarioSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (UsuarioValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -456,13 +457,13 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new UsuarioValidatorError("ERROR AL INTENTAR CAMBIAR LA DESCRIPCION, POR FAVOR VERIFIQUE LA QUERY!");
                             mailSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (UsuarioValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
@@ -495,18 +496,18 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                         if (filasAfectadasDePasswordUsuario > 1)
                         {
-                            Console.WriteLine("CONTRASE{A CAMBIADA CON EXITO!!");
+                            Console.WriteLine("CONTRASEÑA CAMBIADA CON EXITO!!");
                             passwordSeateado = true;
                         }
                         else
                         {
-                            throw new Exception("ERROR EN LA QUERY");
+                            throw new UsuarioValidatorError("ERROR AL INTENTAR CAMBIAR LA CONTRASEÑA, POR FAVOR VERIFIQUE LA QUERY!");
                             passwordSeateado = false;
                         }
                     }
                     sqlConnection.Close();
                 }
-                catch (Exception ex)
+                catch (UsuarioValidatorError ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
