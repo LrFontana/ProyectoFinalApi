@@ -203,10 +203,6 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener Productos por id.
         public static List<Producto> GetProductosPorId(int id)
         {
-            Console.WriteLine("*****************************************");
-            Console.WriteLine("        MOSTRANDO PRODUCTOS POR ID       ");
-            Console.WriteLine("*****************************************\n");
-
             //Variable.
             List<Producto> listaObtenerProductosPorId = new List<Producto>();
             

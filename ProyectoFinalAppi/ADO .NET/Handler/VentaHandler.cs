@@ -148,10 +148,6 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener Ventas.
         public static List<Venta> GetVentas()
         {
-            Console.WriteLine("*****************************************");
-            Console.WriteLine("        MOSTRANDO TODAS LAS VENTAS       ");
-            Console.WriteLine("*****************************************\n");
-
             //Variable
             List<Venta> listaObtenerVentas = new List<Venta>();
             

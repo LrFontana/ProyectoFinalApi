@@ -21,17 +21,16 @@ namespace ProyectoFinalAppi.ADO_.NET
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id;";
+                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";                                
 
-                SqlParameter sqlParameter = new SqlParameter("id", SqlDbType.BigInt) { Value = id};
-                
                 try
                 {
                     sqlConnection.Open();
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(sqlParameter);
+                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });                        
+                        
                         int filasAfectadasDeUsuarioEliminado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeUsuarioEliminado > 1)
@@ -156,10 +155,6 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener Usuarios.
         public static List<Usuario> GetUsuarios()
         {
-            Console.WriteLine("*********************************");
-            Console.WriteLine("   MOSTRANDO TODOS LOS USUARIOS  ");
-            Console.WriteLine("*********************************\n");
-
             //Variable.
             List<Usuario> listaGetUsuarios = new List<Usuario>();
             
@@ -209,10 +204,6 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener usuarios por id.
         public static List<Usuario> GetUsuariosPorId(int id)
         {
-            Console.WriteLine("*********************************");
-            Console.WriteLine("    MOSTRANDO USUARIOS POR ID    ");
-            Console.WriteLine("*********************************\n");
-
             //Variable
             List<Usuario> listaGetUsuariosPorId = new List<Usuario>();
             

@@ -31,8 +31,9 @@ namespace ProyectoFinalAppi.Controllers
         public bool EliminarUsuario([FromBody]int id)
         {
             try
-            {               
+            {
                 return UsuarioHandler.EliminarUsuario(id);
+                
             }
             catch (EliminarErrorException ex)
             {

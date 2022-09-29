@@ -150,10 +150,6 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Obtener Productos Vendidos.
         public static List<ProductoVendido> GetProductosVendidos()
         {
-            Console.WriteLine("*****************************************");
-            Console.WriteLine(" MOSTRANDO TODOS LOS PRODUCTOS VENDIDOS  ");
-            Console.WriteLine("*****************************************\n");
-
             //Variable.
             List<ProductoVendido> listaObtenerProductosVendidos = new List<ProductoVendido>();
             
@@ -200,11 +196,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
         //Obtener productos vendidos por id.
         public static List<ProductoVendido> GetProductosVendidosPorId (int id)
-        {
-            Console.WriteLine("**************************************************");
-            Console.WriteLine("   MOSTRANDO TODOS LOS PRODUCTOS VENDIDOS POR ID  ");
-            Console.WriteLine("**************************************************\n");
-
+        {           
             //Variable.
             List<ProductoVendido> listaObtenerProductosVendidosPorId = new List<ProductoVendido>();
             
