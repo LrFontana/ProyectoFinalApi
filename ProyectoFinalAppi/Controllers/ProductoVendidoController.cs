@@ -28,7 +28,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        public bool EliminarProductoVendido([FromBody] int id)
+        public bool EliminarProductoVendido([FromBody] long id)
         {
             try
             {

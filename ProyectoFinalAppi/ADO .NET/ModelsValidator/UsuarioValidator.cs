@@ -14,7 +14,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
         //Logica Usuario.
 
         //Get Id.
-        public static List<Usuario> GetIdUsuario(int id)
+        public static List<Usuario> GetIdUsuario(long id)
         {
             //Variable.
             List<Usuario> listaIdUsuario = new List<Usuario>();
@@ -60,7 +60,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
         }
 
         //Get nombre.
-        public static List<Usuario> GetNombreUsuario(int id)
+        public static List<Usuario> GetNombreUsuario(long id)
         {
             //Variable.
             List<Usuario> listaNombreUsuario = new List<Usuario>();
@@ -107,7 +107,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
         }
 
         //Get apellido.
-        public static List<Usuario> GetApellidoUsuario(int id)
+        public static List<Usuario> GetApellidoUsuario(long id)
         {
             //variable.
             List<Usuario> listaApellidoUsuario = new List<Usuario>();
@@ -154,7 +154,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
         }
 
         //Get nombre de usuario.
-        public static List<Usuario> GetNombreDeUsuario(int id)
+        public static List<Usuario> GetNombreDeUsuario(long id)
         {
             //Variable.
             List<Usuario> listaNombreDeUsuario = new List<Usuario>();
@@ -201,7 +201,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
         }
 
         //Get mail.
-        public static List<Usuario> GetMailUsuario(int id)
+        public static List<Usuario> GetMailUsuario(long id)
         {
             //Variable.
             List<Usuario> listaMailUsuario = new List<Usuario>();
@@ -248,7 +248,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
         }
 
         //Get password.
-        public static List<Usuario> GetPasswordUsuario(int id)
+        public static List<Usuario> GetPasswordUsuario(long id)
         {
             //Variable.
             List<Usuario> listaPasswordUsuario = new List<Usuario>();
@@ -273,7 +273,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                                 {
                                     Usuario usuario = new Usuario();
                                     usuario.Id = Convert.ToInt32(dataReader["Id"]);
-                                    usuario.Password = dataReader["Contraseña"].ToString();
+                                    usuario.Contraseña = dataReader["Contraseña"].ToString();
                                     listaPasswordUsuario.Add(usuario);
                                 }
                             }
@@ -491,7 +491,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                     using (SqlCommand sqlCommand = new SqlCommand(querySetPasswordUsuario, sqlConnection))
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = usuario.Password });
+                        sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = usuario.Contraseña });
                         int filasAfectadasDePasswordUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDePasswordUsuario > 1)

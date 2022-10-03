@@ -15,7 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpGet]
-        public List<Usuario> GetUsuariosPorId([FromBody] int id)
+        public List<Usuario> GetUsuariosPorId([FromBody] long id)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        public bool EliminarUsuario([FromBody]int id)
+        public bool EliminarUsuario([FromBody]long id)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace ProyectoFinalAppi.Controllers
                     Apellido = usuario.Apellido,
                     NombreUsuario = usuario.NombreUsuario,
                     Mail = usuario.Mail,
-                    Password = usuario.Password,
+                    Contraseña = usuario.Contraseña,
                 });                
             }
             catch (ModificarErrorException ex)
@@ -73,7 +73,7 @@ namespace ProyectoFinalAppi.Controllers
                     Apellido = usuario.Apellido,
                     NombreUsuario = usuario.NombreUsuario,
                     Mail = usuario.Mail,
-                    Password = usuario.Password,
+                    Contraseña = usuario.Contraseña,
                 });
             }
             catch (CrearErrorException ex)

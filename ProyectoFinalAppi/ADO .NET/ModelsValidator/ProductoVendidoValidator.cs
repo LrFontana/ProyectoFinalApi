@@ -14,7 +14,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         //Logica producto vendido.
 
         //Get Id.
-        public static List<ProductoVendido> GetIdProductoVendido(int id)
+        public static List<ProductoVendido> GetIdProductoVendido(long id)
         {
             //Variable.
             List<ProductoVendido> listaIdProductoVendido = new List<ProductoVendido>();
@@ -60,7 +60,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get id producto.
-        public static List<ProductoVendido> GetIdProductoDeProductoVendido(int id)
+        public static List<ProductoVendido> GetIdProductoDeProductoVendido(long id)
         {
             //Variable.
             List<ProductoVendido> listaIdProductoVendido = new List<ProductoVendido>();
@@ -107,7 +107,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get id venta.
-        public static List<ProductoVendido> GetIdVentaDeProductoVendido(int id)
+        public static List<ProductoVendido> GetIdVentaDeProductoVendido(long id)
         {
             //variable.
             List<ProductoVendido> listaIdVentaDeProductoVendio = new List<ProductoVendido>();
@@ -154,7 +154,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get stock.
-        public static List<ProductoVendido> GetStockProductoVendido(int id)
+        public static List<ProductoVendido> GetStockProductoVendido(long id)
         {
             //Variable.
             List<ProductoVendido> listaStockDeProductoVendido = new List<ProductoVendido>();

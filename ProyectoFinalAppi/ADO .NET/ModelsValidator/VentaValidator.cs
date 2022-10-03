@@ -14,7 +14,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         //Logica Venta.
 
         //Get Id.
-        public static List<Venta> GetIdVenta(int id)
+        public static List<Venta> GetIdVenta(long id)
         {
             //Variable.
             List<Venta> listaIdVenta = new List<Venta>();
@@ -60,14 +60,14 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get comentarios.
-        public static List<Venta> GetComentariosVenta(int id)
+        public static List<Venta> GetComentariosVenta(long id)
         {
             //Variable.
             List<Venta> listaComentariosVenta = new List<Venta>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetComentariosVenta = "SELECT Id, Comentarios FROM [SistemaGestion].[dbo].[Venta] WHERE Id = @id";
+                string queryGetComentariosVenta = "SELECT Comentarios FROM [SistemaGestion].[dbo].[Venta] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetComentariosVenta, sqlConnection))
                 {

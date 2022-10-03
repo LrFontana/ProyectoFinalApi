@@ -15,7 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class ProductoController : ControllerBase
     {
         [HttpGet]
-        public List<Producto> GetProductosPorId([FromBody] int id)
+        public List<Producto> GetProductosPorId([FromBody] long id)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        public bool EliminarProducto([FromBody] int id)
+        public bool EliminarProducto([FromBody] long id)
         {
             try
             {
@@ -50,8 +50,8 @@ namespace ProyectoFinalAppi.Controllers
                     Costo = producto.Costo,
                     Stock = producto.Stock,
                     IdUsuario = producto.IdUsuario,
-                    PrecioDeVenta = producto.PrecioDeVenta,
-                    Descripcion = producto.Descripcion,
+                    PrecioVenta = producto.PrecioVenta,
+                    Descripciones = producto.Descripciones,
                 });
             }
             catch (ModificarErrorException ex)
@@ -71,8 +71,8 @@ namespace ProyectoFinalAppi.Controllers
                     Costo = producto.Costo,
                     Stock = producto.Stock,
                     IdUsuario = producto.IdUsuario,
-                    PrecioDeVenta = producto.PrecioDeVenta,
-                    Descripcion = producto.Descripcion,
+                    PrecioVenta = producto.PrecioVenta,
+                    Descripciones = producto.Descripciones,
                 });
             }
             catch (CrearErrorException ex)

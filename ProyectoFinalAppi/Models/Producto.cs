@@ -3,12 +3,12 @@
     public class Producto
     {
         //Variables.
-        public int Id { get; set; }
-        public int Costo { get; set; }
+        public long Id { get; set; }
+        public string Descripciones { get; set; } = null!;
+        public decimal Costo { get; set; }
+        public decimal PrecioVenta { get; set; }
         public int Stock { get; set; }
-        public int IdUsuario { get; set; }
-        public double PrecioDeVenta { get; set; }
-        public string Descripcion { get; set; }
-        
+        public long IdUsuario { get; set; }
+
     }
 }

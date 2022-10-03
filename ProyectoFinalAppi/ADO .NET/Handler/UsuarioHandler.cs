@@ -14,7 +14,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Funciones.
 
         //Eliminar Usuario.
-        public static bool EliminarUsuario(int id)
+        public static bool EliminarUsuario(long id)
         {
             //Variable.
             bool usuarioEliminado = false;            
@@ -75,7 +75,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.Nombre });
                         sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.Apellido });
                         sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Password });
+                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Contraseña });
                         sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
 
                         int filasAfectadasDeUsuarioCreado = sqlCommand.ExecuteNonQuery();
@@ -127,7 +127,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                         sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.NombreUsuario });
                         sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.Apellido });
                         sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Password });
+                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Contraseña });
                         sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
 
                         int filasAfectadasDeUsuarioModificado = sqlCommand.ExecuteNonQuery();
@@ -179,7 +179,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     usuario.Nombre = dataReader["Nombre"].ToString();
                                     usuario.Apellido = dataReader["Apellido"].ToString();
                                     usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
-                                    usuario.Password = dataReader["Contraseña"].ToString();
+                                    usuario.Contraseña = dataReader["Contraseña"].ToString();
                                     usuario.Mail = dataReader["Mail"].ToString();
                                     listaGetUsuarios.Add(usuario);
                                 }
@@ -202,7 +202,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         }
 
         //Obtener usuarios por id.
-        public static List<Usuario> GetUsuariosPorId(int id)
+        public static List<Usuario> GetUsuariosPorId(long id)
         {
             //Variable
             List<Usuario> listaGetUsuariosPorId = new List<Usuario>();
@@ -231,7 +231,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     usuario.Nombre = dataReader["Nombre"].ToString();
                                     usuario.Apellido = dataReader["Apellido"].ToString();
                                     usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
-                                    usuario.Password = dataReader["Contraseña"].ToString();
+                                    usuario.Contraseña = dataReader["Contraseña"].ToString();
                                     usuario.Mail = dataReader["Mail"].ToString();
                                     listaGetUsuariosPorId.Add(usuario);
                                 }

@@ -14,7 +14,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Funciones.
 
         //Eliminar producto.
-        public static bool EliminarProducto(int id)
+        public static bool EliminarProducto(long id)
         {
             //variable.
             bool productoEliminado = false;
@@ -63,7 +63,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 string queryAdd = "INSERT INTO [SistemaGestion].[dbo].[Producto] (Descripciones, Costo, PrecioVenta, Stock, IdUsuario)" +
-                    "VALUES(@descripncion, @costo, @precioDeVenta, @stock, @idUsuario)";
+                    "VALUES(@descripnciones, @costo, @precioVenta, @stock, @idUsuario)";
 
                 try
                 {
@@ -71,9 +71,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripciones });
                         sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioVenta });
                         sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
                         sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
@@ -110,9 +110,9 @@ namespace ProyectoFinalAppi.ADO_.NET
             {
                 string queryUpdate = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "Descripciones = @descripcion," +
+                        "Descripciones = @descripciones," +
                         "Costo = @id," +
-                        "PrecioVenta = @precioDeVenta," +
+                        "PrecioVenta = @precioVenta," +
                         "Stock = @stock," +
                         "Categorias = @idUsuario" +
                     "WHERE Codigo = @id";
@@ -123,9 +123,9 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommando = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommando.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommando.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripciones });
                         sqlCommando.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
-                        sqlCommando.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommando.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioVenta });
                         sqlCommando.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
                         sqlCommando.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
 
@@ -178,8 +178,8 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     producto.Stock = Convert.ToInt32(dataReader["Stock"]);
                                     producto.IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
                                     producto.Costo = Convert.ToInt32(dataReader["Costo"]);
-                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
-                                    producto.Descripcion = dataReader["Descripciones"].ToString();
+                                    producto.PrecioVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
+                                    producto.Descripciones = dataReader["Descripciones"].ToString();
                                     listaObtenerProductos.Add(producto);
                                 }
                             }
@@ -201,14 +201,14 @@ namespace ProyectoFinalAppi.ADO_.NET
         }
 
         //Obtener Productos por id.
-        public static List<Producto> GetProductosPorId(int id)
+        public static List<Producto> GetProductosPorId(long id)
         {
             //Variable.
             List<Producto> listaObtenerProductosPorId = new List<Producto>();
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetProductoPorId = "SELECT Id, Descripciones, Costo, PrecioVenta, Stock, IdUsuario FROM [SistemaGestion].[dbo].[Producto]" +
+                string queryGetProductoPorId = "SELECT * FROM [SistemaGestion].[dbo].[Producto]" +
                     "WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetProductoPorId, sqlConnection))
@@ -230,8 +230,8 @@ namespace ProyectoFinalAppi.ADO_.NET
                                     producto.Stock = Convert.ToInt32(dataReader["Stock"]);
                                     producto.IdUsuario = Convert.ToInt32(dataReader["IdUsuario"]);
                                     producto.Costo = Convert.ToInt32(dataReader["Costo"]);
-                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
-                                    producto.Descripcion = dataReader["Descripciones"].ToString();
+                                    producto.PrecioVenta = Convert.ToInt32(dataReader["PrecioVenta"]);
+                                    producto.Descripciones = dataReader["Descripciones"].ToString();
                                     listaObtenerProductosPorId.Add(producto);
                                 }
                             }

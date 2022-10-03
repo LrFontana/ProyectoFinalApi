@@ -15,7 +15,7 @@ namespace ProyectoFinalApi.Models.GetModels
         //Logica Producto.
 
         //Get Id.
-        public static List<Producto> GetIdProducto(int id) 
+        public static List<Producto> GetIdProducto(long id) 
         {
             //Variable.
             List<Producto> listaIdProducto = new List<Producto>();
@@ -61,7 +61,7 @@ namespace ProyectoFinalApi.Models.GetModels
         }
 
         //Get costo.
-        public static List<Producto> GetCostoProducto(int id)
+        public static List<Producto> GetCostoProducto(long id)
         {
             //Variable.
             List<Producto> listaCostoProducto = new List<Producto>();
@@ -108,7 +108,7 @@ namespace ProyectoFinalApi.Models.GetModels
         }
 
         //Get stock.
-        public static List<Producto> GetStockProducto(int id) 
+        public static List<Producto> GetStockProducto(long id) 
         {
             //variable.
             List<Producto> listaStockProducto = new List<Producto>();
@@ -155,7 +155,7 @@ namespace ProyectoFinalApi.Models.GetModels
         }
 
         //Get precio de venta.
-        public static List<Producto> GetPrecioVentaProducto(int id) 
+        public static List<Producto> GetPrecioVentaProducto(long id) 
         {
             //Variable.
             List<Producto> listaPrecioDeVentaProducto = new List<Producto>();
@@ -180,7 +180,7 @@ namespace ProyectoFinalApi.Models.GetModels
                                 {
                                     Producto producto = new Producto();
                                     producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.PrecioDeVenta = Convert.ToInt32(dataReader["PrecioVenta"]);                                    
+                                    producto.PrecioVenta = Convert.ToInt32(dataReader["PrecioVenta"]);                                    
                                     listaPrecioDeVentaProducto.Add(producto);
                                 }
                             }
@@ -202,7 +202,7 @@ namespace ProyectoFinalApi.Models.GetModels
         }
 
         //Get descripcion.
-        public static List<Producto> GetDescripcionProducto(int id) 
+        public static List<Producto> GetDescripcionProducto(long id) 
         {
             //Variable.
             List<Producto> listaDescripcionProducto = new List<Producto>();
@@ -227,7 +227,7 @@ namespace ProyectoFinalApi.Models.GetModels
                                 {
                                     Producto producto = new Producto();
                                     producto.Id = Convert.ToInt32(dataReader["Id"]);
-                                    producto.Descripcion = dataReader["Descripciones"].ToString();
+                                    producto.Descripciones = dataReader["Descripciones"].ToString();
                                     listaDescripcionProducto.Add(producto);
                                 }
                             }
@@ -249,7 +249,7 @@ namespace ProyectoFinalApi.Models.GetModels
         }
 
         //Get Id usuario.
-        public static List<Producto> GetIdUsuarioProducto(int id) 
+        public static List<Producto> GetIdUsuarioProducto(long id) 
         {
             //Variable.
             List<Producto> listaIdUsuarioProducto = new List<Producto>();
@@ -394,7 +394,7 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetPrecioVentaProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "PrecioVenta = @precioDeVenta" +
+                        "PrecioVenta = @precioVenta" +
                     "WHERE Codigo = @id"; ;
 
                 try
@@ -404,7 +404,7 @@ namespace ProyectoFinalApi.Models.GetModels
                     using (SqlCommand sqlCommand = new SqlCommand(querySetPrecioVentaProducto, sqlConnection))
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioDeVenta });
+                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioVenta });
                         int filasAfectadasDePrecioVentaProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDePrecioVentaProducto > 1)
@@ -438,7 +438,7 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetDescripcionProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "Descripciones = @descripcion" +
+                        "Descripciones = @descripciones" +
                     "WHERE Codigo = @id"; ;
 
                 try
@@ -448,7 +448,7 @@ namespace ProyectoFinalApi.Models.GetModels
                     using (SqlCommand sqlCommand = new SqlCommand(querySetDescripcionProducto, sqlConnection))
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripcion });
+                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripciones });
                         int filasAfectadasDeDescripcionProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeDescripcionProducto > 1)
