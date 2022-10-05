@@ -153,7 +153,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetVentas = "SELECT * FROM [SistemaGestion].[dbo].[Usuario]";
+                string queryGetVentas = "SELECT * FROM [SistemaGestion].[dbo].[Venta]";
 
                 try
                 {
