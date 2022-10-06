@@ -1,5 +1,8 @@
 Mi proyecto final para www.coderhouse.com, donde son pedian hacer un CRUD con ADO .NET Core Web API para un local comercial.
 
+DataBaseScript es la base de datos creada y dada a los alumnos por CoderHouse como modelo del trabajo final.
+
+
 Dentro de la carpeta principal llamada "ProyectoFinalApi" encontraran las siguientes carpetas:
 
 Carpeta "Models", contiene las tablas Usuario, Producto, Producto Vendido y Ventas de la base de datos.
