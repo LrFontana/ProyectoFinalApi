@@ -1,4 +1,4 @@
-Mi proyecto final para www.coderhouse.com, donde son pedian hacer un CRUD con ADO .NET Core Web API para un local comercial.
+¡Hola bienvendi@ a mi proyecto final del curso de C# para www.coderhouse.com!
 
 
 CONSIGNA PROYECTO FINAL:
