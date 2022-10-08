@@ -27,6 +27,20 @@ namespace ProyectoFinalAppi.Controllers
             }            
         }
 
+        [HttpGet]
+        public bool VerificarUsuario([FromBody] string nombre, string contraseña) 
+        {
+            try
+            {
+                return UsuarioHandler.VerificarUsuario(nombre, contraseña);
+            }
+            catch (GetErrorException ex)
+            {
+
+                throw new GetErrorException(ex.Message);
+            }
+        }
+
         [HttpDelete]
         public bool EliminarUsuario([FromBody]long id)
         {
