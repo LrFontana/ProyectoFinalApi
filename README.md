@@ -1,43 +1,7 @@
 Mi proyecto final para www.coderhouse.com, donde son pedian hacer un CRUD con ADO .NET Core Web API para un local comercial.
 
-DataBaseScript es la base de datos creada y dada a los alumnos por CoderHouse como modelo del trabajo final.
-
-
-Dentro de la carpeta principal llamada "ProyectoFinalApi" encontraran las siguientes carpetas:
-
-Carpeta "Models", contiene las tablas Usuario, Producto, Producto Vendido y Ventas de la base de datos.
-
-		-------
-
-Carpeta "Properties", contiene el "launchSettings.json"
-
-		-------
-
-Carpeta "ADO .NET", contiene 3 carpetas adentro:
-
-Carpeta 1 "Error": contiene dos carpetas, "HandlreErrors" y "ValidatorErrors". Su funcionalidad es poder atajar las excepciones de las carpetas "Handler" y "ModelsValidator"
-
-Carpeta 2 "Handler": contiene las peticiones de Creat, Read, Update, Delete a la base de datos.
-
-Carpeta 3 "ModelsValidator": contiene las validaciones para cada clase de la base de datos.
-
-		-------
-
-Carpeta "Controllers", contiene los controller de cada clase y tambien contiene 2 capetas dentro:
-
-Carpeta 1 "DTOS": contiene los PUT y POST.
-
-Carpeta 2 "ExceptionFilter": contiene un filtro para atajar cada excepcion por separado.
-
-
-
-	----------------------------------------------------
-
 
 CONSIGNA PROYECTO FINAL:
-
-
-
 
 Curso C#: Proyecto Final
 Mi propio sistema de gestión
@@ -99,5 +63,43 @@ No es necesario ni recomendado.
 ●	No incurrir en sobre-complejización del código (Más de 2 sentencias anidadas -if adentro de if adentro de if adentro de if-.
 ●	Repetición de código. Más de 500 líneas de código por API.
 ●	Nombres de variables y funciones poco claras. Código muerto), ya que se prioriza que se conserve la funcionalidad, aún siendo corto y sencillo.
+
+
+		----------------------------------------------------------------------------------------
+
+DataBaseScript es la base de datos creada y dada a los alumnos por CoderHouse como modelo del trabajo final.
+
+
+Dentro de la carpeta principal llamada "ProyectoFinalApi" encontraran las siguientes carpetas:
+
+Carpeta "Models", contiene las tablas Usuario, Producto, Producto Vendido y Ventas de la base de datos.
+
+		-------
+
+Carpeta "Properties", contiene el "launchSettings.json"
+
+		-------
+
+Carpeta "ADO .NET", contiene 3 carpetas adentro:
+
+Carpeta 1 "Error": contiene dos carpetas, "HandlreErrors" y "ValidatorErrors". Su funcionalidad es poder atajar las excepciones de las carpetas "Handler" y "ModelsValidator"
+
+Carpeta 2 "Handler": contiene las peticiones de Creat, Read, Update, Delete a la base de datos.
+
+Carpeta 3 "ModelsValidator": contiene las validaciones para cada clase de la base de datos.
+
+		-------
+
+Carpeta "Controllers", contiene los controller de cada clase y tambien contiene 2 capetas dentro:
+
+Carpeta 1 "DTOS": contiene los PUT y POST.
+
+Carpeta 2 "ExceptionFilter": contiene un filtro para atajar cada excepcion por separado.
+
+
+
+	
+
+
 
 
