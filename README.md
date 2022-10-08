@@ -97,6 +97,11 @@ Carpeta 1 "DTOS": contiene los PUT y POST.
 Carpeta 2 "ExceptionFilter": contiene un filtro para atajar cada excepcion por separado.
 
 
+	--------------------------
+
+NOTA FINAL: 8.
+
+
 
 	
 
