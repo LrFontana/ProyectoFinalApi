@@ -15,7 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpGet]
-        public List<Usuario> GetUsuariosPorId([FromBody] long id)
+        public List<Usuario> GetUsuariosPorId([FromBody] int id)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpGet]
+        [Route("VerificarUsuario")]
         public bool VerificarUsuario([FromBody] string nombre, string contraseña) 
         {
             try
@@ -42,7 +43,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        public bool EliminarUsuario([FromBody]long id)
+        public bool EliminarUsuario([FromBody]int id)
         {
             try
             {

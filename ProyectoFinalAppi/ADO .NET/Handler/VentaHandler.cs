@@ -14,7 +14,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Funciones.
 
         //Eliminar Venta.
-        public static bool EliminarVenta(long id)
+        public static bool EliminarVenta(int id)
         {
             //Varibale.
             bool ventaEliminada = false;            

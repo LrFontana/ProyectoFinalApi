@@ -13,7 +13,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Funciones.
 
         //Eliminar Producto Vendido.
-        public static bool EliminarProductoVendido(long id)
+        public static bool EliminarProductoVendido(int id)
         {
             //Variable.
             bool productoVendidoEliminado = false;           
@@ -195,7 +195,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         }
 
         //Obtener productos vendidos por id.
-        public static List<ProductoVendido> GetProductosVendidosPorId (long id)
+        public static List<ProductoVendido> GetProductosVendidosPorId (int id)
         {           
             //Variable.
             List<ProductoVendido> listaObtenerProductosVendidosPorId = new List<ProductoVendido>();

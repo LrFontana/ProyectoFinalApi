@@ -14,7 +14,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         //Funciones.
 
         //Eliminar Usuario.
-        public static bool EliminarUsuario(long id)
+        public static bool EliminarUsuario(int id)
         {
             //Variable.
             bool usuarioEliminado = false;            
@@ -202,7 +202,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         }
 
         //Obtener usuarios por id.
-        public static List<Usuario> GetUsuariosPorId(long id)
+        public static List<Usuario> GetUsuariosPorId(int id)
         {
             //Variable
             List<Usuario> listaGetUsuariosPorId = new List<Usuario>();

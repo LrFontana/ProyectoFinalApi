@@ -15,7 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class ProductoController : ControllerBase
     {
         [HttpGet]
-        public List<Producto> GetProductosPorId([FromBody] long id)
+        public List<Producto> GetProductosPorId([FromBody] int id)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        public bool EliminarProducto([FromBody] long id)
+        public bool EliminarProducto([FromBody] int id)
         {
             try
             {
