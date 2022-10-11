@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using ProyectoFinalAppi.Models;
-using
 using System.Data;
 using ProyectoFinalApi.ADO_.NET.Error.ValidatorErrors;
 
@@ -9,11 +8,9 @@ namespace ProyectoFinalApi.Models.GetModels
     public static class ProductoValidator
     {
         //Variable.
-        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
-        
+        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";        
 
         //Logica Producto.
-
         //Get Id.
         public static List<Producto> GetIdProducto(long id) 
         {
@@ -59,7 +56,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return listaIdProducto;
         }
-
         //Get costo.
         public static List<Producto> GetCostoProducto(long id)
         {
@@ -106,7 +102,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return listaCostoProducto;
         }
-
         //Get stock.
         public static List<Producto> GetStockProducto(long id) 
         {
@@ -153,7 +148,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return listaStockProducto;
         }
-
         //Get precio de venta.
         public static List<Producto> GetPrecioVentaProducto(long id) 
         {
@@ -200,7 +194,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return listaPrecioDeVentaProducto;
         }
-
         //Get descripcion.
         public static List<Producto> GetDescripcionProducto(long id) 
         {
@@ -247,7 +240,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return listaDescripcionProducto;
         }
-
         //Get Id usuario.
         public static List<Producto> GetIdUsuarioProducto(long id) 
         {
@@ -294,8 +286,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return listaIdUsuarioProducto;
         }
-
-
         //Set Costo.
         public static bool SetCostoProducto(Producto producto) 
         {
@@ -339,7 +329,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return costoSeateado;
         }
-
         //Set stock.
         public static bool SetStockProducto(Producto producto) 
         {
@@ -383,7 +372,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return stockSeateado;
         }
-
         //Set precio de venta.
         public static bool SetPrecioVentaProducto(Producto producto) 
         {
@@ -427,7 +415,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return precioVentaSeateado;
         }
-
         //Set descripcion.
         public static bool SetDescripcionProducto(Producto producto) 
         {
@@ -471,7 +458,6 @@ namespace ProyectoFinalApi.Models.GetModels
             }
             return descripcionSeateado;
         }
-
         //Set id usuario.
         public static bool SetIdUsuarioProducto(Producto producto) 
         {

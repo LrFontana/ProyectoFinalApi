@@ -67,7 +67,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 string queryAdd = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios)" +
-                    "VALUES(@comentarios)";
+                    "VALUES(@Comentarios)";
                 
                 try
                 {
@@ -189,5 +189,54 @@ namespace ProyectoFinalAppi.ADO_.NET
             }
             return listaObtenerVentas;
         }        
+
+        //Carga Venta.
+        public static bool CargarVenta(List<Producto> listaProducto, int idUsuario) 
+        {
+            //Variable.
+            bool ventaCargada = false;            
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString)) 
+            {
+                sqlConnection.Open();               
+
+                try
+                {
+                    string cargarVenta = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios, Id) VALUES(@listaProducto, @idUsuario)";
+
+                    using (SqlCommand sqlCommand = new SqlCommand(cargarVenta, sqlConnection)) 
+                    {
+                        sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = listaProducto });
+                        sqlCommand.Parameters.AddWithValue("Id", idUsuario);
+                        sqlCommand.ExecuteNonQuery();
+                    }
+
+                    string cargarProductoVendido = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido] (IdVenta) VALUES(@idUsuario)";
+
+                    using(SqlCommand sqlCommand = new SqlCommand(cargarProductoVendido, sqlConnection)) 
+                    {
+                        sqlCommand.Parameters.AddWithValue("IdVenta", idUsuario);
+                        sqlCommand.ExecuteNonQuery();
+                    }
+
+                    string descontarStockProducto = "UPDATE [SistemaGestion].[dbo].[Producto] SET Stock = @listaProducto";
+
+                    using( SqlCommand sqlCommand = new SqlCommand(descontarStockProducto, sqlConnection)) 
+                    {
+                        listaProducto.ToString();
+                        sqlCommand.Parameters.AddWithValue("Stock", Convert.ToInt32(listaProducto));
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    ventaCargada = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                sqlConnection.Close();
+            }
+
+            return ventaCargada;
+        }
     }
 }

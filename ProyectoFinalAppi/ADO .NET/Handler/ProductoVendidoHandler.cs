@@ -20,7 +20,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @Id;";
+                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id;";
 
                 SqlParameter sqlParameter = new SqlParameter("Id", SqlDbType.BigInt) { Value = id};
 
@@ -64,7 +64,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 string queryAdd = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido] (Stock, IdProducto, IdVenta)" +
-                    "VALUES(@stock, @idProducto, @idVenta)";
+                    "VALUES(@Stock, @IdProducto, @IdVenta)";
 
                 try
                 {
@@ -109,10 +109,10 @@ namespace ProyectoFinalAppi.ADO_.NET
             {
                 string queryUpdate = "UPDATE [SistemaGestion].[dbo].[ProductoVendido ]" +
                     "SET " +
-                        "Stock = @stock," +
-                        "IdProducto = @idProducto," +
-                        "IdVenta = @idVenta," +
-                    "WHERE Id = @id";
+                        "Stock = @Stock," +
+                        "IdProducto = @IdProducto," +
+                        "IdVenta = @IdVenta," +
+                    "WHERE Id = @Id";
 
                 try
                 {

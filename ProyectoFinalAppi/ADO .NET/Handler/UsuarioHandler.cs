@@ -64,7 +64,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
                 string queryAdd = "INSERT INTO [SistemaGestion].[dbo].[Usuario] (Nombre, Apellido, NombreUsuario, Contraseña, Mail)" +
-                    "VALUES(@nombre, @apellido, @nombreUsuario, @contraseña, @mail)";
+                    "VALUES(@Nombre, @Apellido, @NombreUsuario, @Contraseña, @Mail)";
 
                 try
                 {
@@ -111,12 +111,12 @@ namespace ProyectoFinalAppi.ADO_.NET
             {
                 string queryUpdate = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Nombre = @nombre," +
-                        "Apellido = @apellido," +
-                        "NombreUsuario = @nombreUsuario," +
-                        "Contraseña = @password," +
-                        "Mail = @mail" +
-                    "WHERE Id = @id";
+                        "Nombre = @Nombre," +
+                        "Apellido = @Apellido," +
+                        "NombreUsuario = @NombreUsuario," +
+                        "Contraseña = @Contraseña," +
+                        "Mail = @Mail" +
+                    "WHERE Id = @Id";
 
                 try
                 {
@@ -254,7 +254,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         }
         
         //Verificar usuario.
-        public static bool VerificarUsuario(string nombre, string password)
+        public static bool VerificarUsuario(string nombre, string contraseña)
         {
             int cont = 0;
             bool logingExitoso = false;
@@ -270,13 +270,13 @@ namespace ProyectoFinalAppi.ADO_.NET
                     using (SqlCommand sqlCommand = new SqlCommand(queryVerificarUsuario, sqlConnection))
                     {
                         sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = nombre });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.VarChar) { Value = password });
+                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.VarChar) { Value = contraseña });
 
                         sqlCommand.ExecuteNonQuery();
 
                         do
                         {
-                            if (password == password && nombre == nombre)
+                            if (contraseña == contraseña && nombre == nombre)
                             {
                                 logingExitoso = true;
                             }
