@@ -8,13 +8,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
     public class ProductoVendidoValidator
     {
         //Variable.
-        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
+        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
 
 
         //Logica producto vendido.
 
         //Get Id.
-        public static List<ProductoVendido> GetIdProductoVendido(long id)
+        public static List<ProductoVendido> GetIdProductoVendido(int id)
         {
             //Variable.
             List<ProductoVendido> listaIdProductoVendido = new List<ProductoVendido>();
@@ -25,7 +25,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetValidarProductoVendido, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -58,20 +58,19 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             }
             return listaIdProductoVendido;
         }
-
         //Get id producto.
-        public static List<ProductoVendido> GetIdProductoDeProductoVendido(long id)
+        public static List<ProductoVendido> GetIdProductoDeProductoVendido(int id)
         {
             //Variable.
             List<ProductoVendido> listaIdProductoVendido = new List<ProductoVendido>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetIdProductoVendido = "SELECT Id, IdProducto FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
+                string queryGetIdProductoVendido = "SELECT IdProducto FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetIdProductoVendido, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -83,8 +82,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                             {
                                 while (dataReader.Read())
                                 {
-                                    ProductoVendido productoVendido = new ProductoVendido();
-                                    productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
+                                    ProductoVendido productoVendido = new ProductoVendido();                                    
                                     productoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
                                     listaIdProductoVendido.Add(productoVendido);
                                 }
@@ -107,18 +105,18 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get id venta.
-        public static List<ProductoVendido> GetIdVentaDeProductoVendido(long id)
+        public static List<ProductoVendido> GetIdVentaDeProductoVendido(int id)
         {
             //variable.
             List<ProductoVendido> listaIdVentaDeProductoVendio = new List<ProductoVendido>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetIdVentaDeProductoVendido = "SELECT Id, IdVenta FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
+                string queryGetIdVentaDeProductoVendido = "SELECT IdVenta FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetIdVentaDeProductoVendido, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -131,7 +129,6 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                                 while (dataReader.Read())
                                 {
                                     ProductoVendido productoVendido = new ProductoVendido();
-                                    productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
                                     productoVendido.IdVenta = Convert.ToInt32(dataReader["IdVenta"]);
                                     listaIdVentaDeProductoVendio.Add(productoVendido);
                                 }
@@ -154,18 +151,18 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get stock.
-        public static List<ProductoVendido> GetStockProductoVendido(long id)
+        public static List<ProductoVendido> GetStockProductoVendido(int id)
         {
             //Variable.
             List<ProductoVendido> listaStockDeProductoVendido = new List<ProductoVendido>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetStockDeProductoVendido = "SELECT Id, Stock FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
+                string queryGetStockDeProductoVendido = "SELECT Stock FROM [SistemaGestion].[dbo].[ProductoVendido] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetStockDeProductoVendido, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -178,7 +175,6 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                                 while (dataReader.Read())
                                 {
                                     ProductoVendido productoVendido = new ProductoVendido();
-                                    productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
                                     productoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
                                     listaStockDeProductoVendido.Add(productoVendido);
                                 }
@@ -210,8 +206,8 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             {
                 string querySetIdProducto = "UPDATE [SistemaGestion].[dbo].[ProductoVendido]" +
                     "SET " +
-                        "IdProducto = @idProducto" +
-                    "WHERE Codigo = @id"; ;
+                        "IdProducto = @IdProducto" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -219,8 +215,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetIdProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = productoVendido.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdProducto", SqlDbType.BigInt) { Value = productoVendido.IdProducto });
+                        sqlCommand.Parameters.AddWithValue("@IdProducto", productoVendido.IdProducto);
                         int filasAfectadasDeCostoProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeCostoProducto > 1)
@@ -254,8 +249,8 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             {
                 string querySetIdVenta = "UPDATE [SistemaGestion].[dbo].[ProductoVendido]" +
                     "SET " +
-                        "IdVenta = @idVenta" +
-                    "WHERE Codigo = @id"; ;
+                        "IdVenta = @IdVenta" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -263,8 +258,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetIdVenta, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = productoVendido.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdVenta", SqlDbType.BigInt) { Value = productoVendido.IdVenta });
+                        sqlCommand.Parameters.AddWithValue("@IdVenta", productoVendido.IdVenta);
                         int filasAfectadasDeStockProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeStockProducto > 1)
@@ -298,8 +292,8 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             {
                 string querySetStockDeProductoVendido = "UPDATE [SistemaGestion].[dbo].[ProductoVendido]" +
                     "SET " +
-                        "Stock = @stock" +
-                    "WHERE Codigo = @id"; ;
+                        "Stock = @Stock" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -307,8 +301,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetStockDeProductoVendido, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = productoVendido.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = productoVendido.Stock });
+                        sqlCommand.Parameters.AddWithValue("@Stock", productoVendido.Stock);
                         int filasAfectadasDePrecioVentaProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDePrecioVentaProducto > 1)

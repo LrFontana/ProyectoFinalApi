@@ -1,7 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.ObjectPool;
+using ProyectoFinalApi.Controllers.DTOS;
 using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Models;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 
 namespace ProyectoFinalAppi.ADO_.NET
@@ -9,7 +14,7 @@ namespace ProyectoFinalAppi.ADO_.NET
     public static class VentaHandler 
     {
         //Variable.
-        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
+        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
 
         //Funciones.
 
@@ -21,9 +26,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Venta] WHERE Id = @Id;";
-
-                SqlParameter sqlParameter = new SqlParameter("Id", SqlDbType.BigInt) { Value = id };                
+                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Venta] WHERE Id = @Id;";                               
 
                 try
                 {
@@ -31,9 +34,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
                     {
-
-                        sqlCommand.Parameters.Add(sqlParameter);
-
+                        sqlCommand.Parameters.AddWithValue("@id", id);
                         int filasAfectadasDeVentaEliminada = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeVentaEliminada > 1)
@@ -75,8 +76,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = venta.Comentarios });
-
+                        sqlCommand.Parameters.AddWithValue("@Comentarios", venta.Comentarios);
                         int filasAfectadasDeVentaCreada = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeVentaCreada > 1)
@@ -119,9 +119,8 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = venta.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = venta.Comentarios });
-
+                        sqlCommand.Parameters.AddWithValue("@Id", venta.Id);
+                        sqlCommand.Parameters.AddWithValue("@Comentarios", venta.Comentarios);
                         int filasAfectadasDeVentaModificada = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeVentaModificada > 1)
@@ -189,54 +188,6 @@ namespace ProyectoFinalAppi.ADO_.NET
             }
             return listaObtenerVentas;
         }        
-
-        //Carga Venta.
-        public static bool CargarVenta(List<Producto> listaProducto, int idUsuario) 
-        {
-            //Variable.
-            bool ventaCargada = false;            
-
-            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString)) 
-            {
-                sqlConnection.Open();               
-
-                try
-                {
-                    string cargarVenta = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios, Id) VALUES(@listaProducto, @idUsuario)";
-
-                    using (SqlCommand sqlCommand = new SqlCommand(cargarVenta, sqlConnection)) 
-                    {
-                        sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.VarChar) { Value = listaProducto });
-                        sqlCommand.Parameters.AddWithValue("Id", idUsuario);
-                        sqlCommand.ExecuteNonQuery();
-                    }
-
-                    string cargarProductoVendido = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido] (IdVenta) VALUES(@idUsuario)";
-
-                    using(SqlCommand sqlCommand = new SqlCommand(cargarProductoVendido, sqlConnection)) 
-                    {
-                        sqlCommand.Parameters.AddWithValue("IdVenta", idUsuario);
-                        sqlCommand.ExecuteNonQuery();
-                    }
-
-                    string descontarStockProducto = "UPDATE [SistemaGestion].[dbo].[Producto] SET Stock = @listaProducto";
-
-                    using( SqlCommand sqlCommand = new SqlCommand(descontarStockProducto, sqlConnection)) 
-                    {
-                        listaProducto.ToString();
-                        sqlCommand.Parameters.AddWithValue("Stock", Convert.ToInt32(listaProducto));
-                        sqlCommand.ExecuteNonQuery();
-                    }
-                    ventaCargada = true;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-                sqlConnection.Close();
-            }
-
-            return ventaCargada;
-        }
+        
     }
 }

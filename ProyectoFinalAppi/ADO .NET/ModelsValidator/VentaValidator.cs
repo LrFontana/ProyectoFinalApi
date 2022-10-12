@@ -8,13 +8,13 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
     public class VentaValidator
     {
         //Variable.
-        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
+        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
 
 
         //Logica Venta.
 
         //Get Id.
-        public static List<Venta> GetIdVenta(long id)
+        public static List<Venta> GetIdVenta(int id)
         {
             //Variable.
             List<Venta> listaIdVenta = new List<Venta>();
@@ -25,7 +25,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetIdVenta, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -60,7 +60,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
         }
 
         //Get comentarios.
-        public static List<Venta> GetComentariosVenta(long id)
+        public static List<Venta> GetComentariosVenta(int id)
         {
             //Variable.
             List<Venta> listaComentariosVenta = new List<Venta>();
@@ -71,7 +71,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetComentariosVenta, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -84,7 +84,6 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
                                 while (dataReader.Read())
                                 {
                                     Venta venta = new Venta();
-                                    venta.Id = Convert.ToInt32(dataReader["Id"]);
                                     venta.Comentarios = dataReader["Comentarios"].ToString();
                                     listaComentariosVenta.Add(venta);
                                 }
@@ -116,8 +115,8 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
             {
                 string querySetComentariosVenta = "UPDATE [SistemaGestion].[dbo].[Venta]" +
                     "SET " +
-                        "Comentarios = @comentarios" +
-                    "WHERE Codigo = @id"; ;
+                        "Comentarios = @Comentarios" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -125,8 +124,7 @@ namespace ProyectoFinalApi.ADO_.NET.ModelsValidator
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetComentariosVenta, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = venta.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Comentarios", SqlDbType.BigInt) { Value = venta.Comentarios });
+                        sqlCommand.Parameters.AddWithValue("@Comentarios", venta.Comentarios);
                         int filasAfectadasDeNombreUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeNombreUsuario > 1)

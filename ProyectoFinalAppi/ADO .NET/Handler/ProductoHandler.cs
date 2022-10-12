@@ -9,7 +9,7 @@ namespace ProyectoFinalAppi.ADO_.NET
     public static class ProductoHandler
     {
         //Variable.
-        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
+        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
 
         //Funciones.
 
@@ -29,8 +29,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
-
+                        sqlCommand.Parameters.AddWithValue("@id", id);
                         int filasAfectadasDeProductosEliminado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeProductosEliminado > 1)
@@ -71,12 +70,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripciones });
-                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioVenta });
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
-                        sqlCommand.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
-
+                        sqlCommand.Parameters.AddWithValue("@Descripciones", producto.Descripciones);
+                        sqlCommand.Parameters.AddWithValue("@Costo", producto.Costo);
+                        sqlCommand.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
+                        sqlCommand.Parameters.AddWithValue("@Stock", producto.Stock);
+                        sqlCommand.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
                         int filasAfectadasDeProductosCreado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeProductosCreado > 1)
@@ -121,15 +119,14 @@ namespace ProyectoFinalAppi.ADO_.NET
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommando = new SqlCommand(queryUpdate, sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(queryUpdate, sqlConnection))
                     {
-                        sqlCommando.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripciones });
-                        sqlCommando.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });
-                        sqlCommando.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioVenta });
-                        sqlCommando.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
-                        sqlCommando.Parameters.Add(new SqlParameter("IdUsuario", SqlDbType.VarChar) { Value = producto.IdUsuario });
-
-                        int filasAfectadasDeProductosModificado = sqlCommando.ExecuteNonQuery();
+                        sqlCommand.Parameters.AddWithValue("@Descripciones", producto.Descripciones);
+                        sqlCommand.Parameters.AddWithValue("@Costo", producto.Costo);
+                        sqlCommand.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
+                        sqlCommand.Parameters.AddWithValue("@Stock", producto.Stock);
+                        sqlCommand.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
+                        int filasAfectadasDeProductosModificado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeProductosModificado > 1)
                         {
@@ -213,7 +210,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetProductoPorId, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {

@@ -9,7 +9,7 @@ namespace ProyectoFinalAppi.ADO_.NET
     public static class UsuarioHandler 
     {
         //Variable.
-        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
+        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
 
         //Funciones.
 
@@ -29,8 +29,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });                        
-                        
+                        sqlCommand.Parameters.AddWithValue("@id", id);                        
                         int filasAfectadasDeUsuarioEliminado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeUsuarioEliminado > 1)
@@ -72,12 +71,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryAdd, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.Nombre });
-                        sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.Apellido });
-                        sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Contraseña });
-                        sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
-
+                        sqlCommand.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                        sqlCommand.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                        sqlCommand.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                        sqlCommand.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
+                        sqlCommand.Parameters.AddWithValue("@Mail", usuario.Mail);
                         int filasAfectadasDeUsuarioCreado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeUsuarioCreado > 1)
@@ -124,12 +122,11 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryUpdate, connection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = usuario.NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Apellido", SqlDbType.BigInt) { Value = usuario.Apellido });
-                        sqlCommand.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.BigInt) { Value = usuario.Contraseña });
-                        sqlCommand.Parameters.Add(new SqlParameter("Mail", SqlDbType.VarChar) { Value = usuario.Mail });
-
+                        sqlCommand.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                        sqlCommand.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                        sqlCommand.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
+                        sqlCommand.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
+                        sqlCommand.Parameters.AddWithValue("@Mail", usuario.Mail);
                         int filasAfectadasDeUsuarioModificado = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeUsuarioModificado > 1)
@@ -214,7 +211,7 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                 using(SqlCommand sqlCommand = new SqlCommand(queryGetUsuariosId, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -269,9 +266,8 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(queryVerificarUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = nombre });
-                        sqlCommand.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.VarChar) { Value = contraseña });
-
+                        sqlCommand.Parameters.AddWithValue("@nombre", nombre);
+                        sqlCommand.Parameters.AddWithValue("@contraseña", contraseña);
                         sqlCommand.ExecuteNonQuery();
 
                         do

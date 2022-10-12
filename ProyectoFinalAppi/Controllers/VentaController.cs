@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProyectoFinalApi.Controllers.DTOS;
 using ProyectoFinalApi.Controllers.ExecptionFilter;
 using ProyectoFinalAppi.ADO_.NET;
 using ProyectoFinalAppi.ADO_.NET.Error;
@@ -72,6 +73,13 @@ namespace ProyectoFinalAppi.Controllers
                 throw new CrearErrorException(ex.Message);
             }
 
+        }
+
+        [HttpPost]
+        [Route("CargarVenta")]
+        public bool CargarVenta([FromBody] List<PostProductoAComprar> productos, int id)
+        {
+            return VentaHandler.CargarVenta(productos, id);            
         }
     }
 }

@@ -8,13 +8,11 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
     public class UsuarioValidator
     {
         //Variable.
-        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";
-
+        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
 
         //Logica Usuario.
-
         //Get Id.
-        public static List<Usuario> GetIdUsuario(long id)
+        public static List<Usuario> GetIdUsuario(int id)
         {
             //Variable.
             List<Usuario> listaIdUsuario = new List<Usuario>();
@@ -25,7 +23,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetIdUsuario, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -58,20 +56,19 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return listaIdUsuario;
         }
-
         //Get nombre.
-        public static List<Usuario> GetNombreUsuario(long id)
+        public static List<Usuario> GetNombreUsuario(int id)
         {
             //Variable.
             List<Usuario> listaNombreUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetNombreUsuario = "SELECT Id, Nombre FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
+                string queryGetNombreUsuario = "SELECT Nombre FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetNombreUsuario, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -84,7 +81,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                                 while (dataReader.Read())
                                 {
                                     Usuario usuario = new Usuario();
-                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
                                     usuario.Nombre = dataReader["Nombre"].ToString();
                                     listaNombreUsuario.Add(usuario);
                                 }
@@ -105,20 +101,19 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return listaNombreUsuario;
         }
-
         //Get apellido.
-        public static List<Usuario> GetApellidoUsuario(long id)
+        public static List<Usuario> GetApellidoUsuario(int id)
         {
             //variable.
             List<Usuario> listaApellidoUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetApellidoUsuario = "SELECT Id, Apellido FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
+                string queryGetApellidoUsuario = "SELECT Apellido FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetApellidoUsuario, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -131,7 +126,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                                 while (dataReader.Read())
                                 {
                                     Usuario usuario = new Usuario();
-                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
                                     usuario.Apellido = dataReader["Stock"].ToString();
                                     listaApellidoUsuario.Add(usuario);
                                 }
@@ -152,20 +146,19 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return listaApellidoUsuario;
         }
-
         //Get nombre de usuario.
-        public static List<Usuario> GetNombreDeUsuario(long id)
+        public static List<Usuario> GetNombreDeUsuario(int id)
         {
             //Variable.
             List<Usuario> listaNombreDeUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetNombreDeUsuario = "SELECT Id, NombreUsuario FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
+                string queryGetNombreDeUsuario = "SELECT NombreUsuario FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetNombreDeUsuario, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -178,7 +171,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                                 while (dataReader.Read())
                                 {
                                     Usuario usuario = new Usuario();
-                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
                                     usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
                                     listaNombreDeUsuario.Add(usuario);
                                 }
@@ -199,20 +191,19 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return listaNombreDeUsuario;
         }
-
         //Get mail.
-        public static List<Usuario> GetMailUsuario(long id)
+        public static List<Usuario> GetMailUsuario(int id)
         {
             //Variable.
             List<Usuario> listaMailUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetMailUsuario = "SELECT Id, Mail FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
+                string queryGetMailUsuario = "SELECT Mail FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetMailUsuario, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -225,7 +216,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                                 while (dataReader.Read())
                                 {
                                     Usuario usuario = new Usuario();
-                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
                                     usuario.Mail = dataReader["Mail"].ToString();
                                     listaMailUsuario.Add(usuario);
                                 }
@@ -246,20 +236,19 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return listaMailUsuario;
         }
-
         //Get password.
-        public static List<Usuario> GetPasswordUsuario(long id)
+        public static List<Usuario> GetPasswordUsuario(int id)
         {
             //Variable.
             List<Usuario> listaPasswordUsuario = new List<Usuario>();
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetPasswordUsuario = "SELECT Id, Contraseña FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
+                string queryGetPasswordUsuario = "SELECT Contraseña FROM [SistemaGestion].[dbo].[Usuario] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetPasswordUsuario, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -272,7 +261,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
                                 while (dataReader.Read())
                                 {
                                     Usuario usuario = new Usuario();
-                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
                                     usuario.Contraseña = dataReader["Contraseña"].ToString();
                                     listaPasswordUsuario.Add(usuario);
                                 }
@@ -293,8 +281,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return listaPasswordUsuario;
         }
-
-
         //Set Costo.
         public static bool SetNombreUsiario(Usuario Usuario)
         {
@@ -305,8 +291,8 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             {
                 string querySetNombreUsuaurio = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Nombre = @nombre" +
-                    "WHERE Codigo = @id"; ;
+                        "Nombre = @Nombre" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -314,8 +300,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetNombreUsuaurio, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = Usuario.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = Usuario.Nombre });
+                        sqlCommand.Parameters.AddWithValue("@Nombre", Usuario.Nombre);
                         int filasAfectadasDeNombreUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeNombreUsuario > 1)
@@ -338,7 +323,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return nombreSeteado;
         }
-
         //Set stock.
         public static bool SetApellidoUsuario(Usuario usuario)
         {
@@ -349,8 +333,8 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             {
                 string querySetApellidoUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Apellido = @apellido" +
-                    "WHERE Codigo = @id"; ;
+                        "Apellido = @Apellido" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -358,8 +342,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetApellidoUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = usuario.Apellido });
+                        sqlCommand.Parameters.AddWithValue("@Apellido", usuario.Apellido);
                         int filasAfectadasDeApellidoUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeApellidoUsuario > 1)
@@ -382,7 +365,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return apellidoSeteado;
         }
-
         //Set precio de venta.
         public static bool SetNombreDeUsuario(Usuario usuario)
         {
@@ -393,8 +375,8 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             {
                 string querySetNombreDeUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "NombreUsuario = @nombreUsuario" +
-                    "WHERE Codigo = @id"; ;
+                        "NombreUsuario = @NombreUsuario" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -402,8 +384,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetNombreDeUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = usuario.NombreUsuario });
+                        sqlCommand.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
                         int filasAfectadasDeNombreDeUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeNombreDeUsuario > 1)
@@ -426,7 +407,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return nombreDeUsuarioSeateado;
         }
-
         //Set descripcion.
         public static bool SetMailUsuario(Usuario usuario)
         {
@@ -437,8 +417,8 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             {
                 string querySetMailUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Mail = @mail" +
-                    "WHERE Codigo = @id"; ;
+                        "Mail = @Mail" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -446,8 +426,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetMailUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = usuario.Mail });
+                        sqlCommand.Parameters.AddWithValue("@Mail", usuario.Mail);
                         int filasAfectadasDeMailUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeMailUsuario > 1)
@@ -470,7 +449,6 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             }
             return mailSeateado;
         }
-
         //Set id usuario.
         public static bool SetPasswordUsuario(Usuario usuario)
         {
@@ -481,8 +459,8 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
             {
                 string querySetPasswordUsuario = "UPDATE [SistemaGestion].[dbo].[Usuario]" +
                     "SET " +
-                        "Contraseña = @password" +
-                    "WHERE Codigo = @id"; ;
+                        "Contraseña = @Contraseña" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -490,8 +468,7 @@ namespace ProyectoFinalApi.Models.ModelsValidaton
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetPasswordUsuario, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = usuario.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = usuario.Contraseña });
+                        sqlCommand.Parameters.AddWithValue("@Contraseña", usuario.Contraseña);
                         int filasAfectadasDePasswordUsuario = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDePasswordUsuario > 1)

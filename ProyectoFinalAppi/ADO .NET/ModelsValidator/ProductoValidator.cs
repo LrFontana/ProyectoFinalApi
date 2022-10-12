@@ -8,11 +8,11 @@ namespace ProyectoFinalApi.Models.GetModels
     public static class ProductoValidator
     {
         //Variable.
-        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True";        
+        private const string ConnectionString = @"Server=DESKTOP-A2H9T9K\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";        
 
         //Logica Producto.
         //Get Id.
-        public static List<Producto> GetIdProducto(long id) 
+        public static List<Producto> GetIdProducto(int id) 
         {
             //Variable.
             List<Producto> listaIdProducto = new List<Producto>();
@@ -23,7 +23,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetIdProducto, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -57,7 +57,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaIdProducto;
         }
         //Get costo.
-        public static List<Producto> GetCostoProducto(long id)
+        public static List<Producto> GetCostoProducto(int id)
         {
             //Variable.
             List<Producto> listaCostoProducto = new List<Producto>();
@@ -68,7 +68,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetCostoProducto, sqlConnection)) 
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -103,7 +103,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaCostoProducto;
         }
         //Get stock.
-        public static List<Producto> GetStockProducto(long id) 
+        public static List<Producto> GetStockProducto(int id) 
         {
             //variable.
             List<Producto> listaStockProducto = new List<Producto>();
@@ -114,7 +114,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetStockProducto, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -149,7 +149,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaStockProducto;
         }
         //Get precio de venta.
-        public static List<Producto> GetPrecioVentaProducto(long id) 
+        public static List<Producto> GetPrecioVentaProducto(int id) 
         {
             //Variable.
             List<Producto> listaPrecioDeVentaProducto = new List<Producto>();
@@ -160,7 +160,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetPrecioDeVenta, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -195,7 +195,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaPrecioDeVentaProducto;
         }
         //Get descripcion.
-        public static List<Producto> GetDescripcionProducto(long id) 
+        public static List<Producto> GetDescripcionProducto(int id) 
         {
             //Variable.
             List<Producto> listaDescripcionProducto = new List<Producto>();
@@ -206,7 +206,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetDescripcionProducto, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -241,7 +241,7 @@ namespace ProyectoFinalApi.Models.GetModels
             return listaDescripcionProducto;
         }
         //Get Id usuario.
-        public static List<Producto> GetIdUsuarioProducto(long id) 
+        public static List<Producto> GetIdUsuarioProducto(int id) 
         {
             //Variable.
             List<Producto> listaIdUsuarioProducto = new List<Producto>();
@@ -252,7 +252,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetUsuarioIdProducto, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = id });
+                    sqlCommand.Parameters.AddWithValue("@id", id);
 
                     try
                     {
@@ -296,8 +296,8 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetCostoProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "Costo = @costo" +
-                    "WHERE Codigo = @id"; ;
+                        "Costo = @Costo" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -305,8 +305,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetCostoProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });                        
-                        sqlCommand.Parameters.Add(new SqlParameter("Costo", SqlDbType.BigInt) { Value = producto.Costo });                        
+                        sqlCommand.Parameters.AddWithValue("@Costo", producto.Costo);
                         int filasAfectadasDeCostoProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeCostoProducto > 1)
@@ -339,8 +338,8 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetStockProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +                        
-                        "Stock = @stock" +                        
-                    "WHERE Codigo = @id"; ;
+                        "Stock = @Stock" +                        
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -348,8 +347,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetStockProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Stock", SqlDbType.BigInt) { Value = producto.Stock });
+                        sqlCommand.Parameters.AddWithValue("@Stock", producto.Stock);
                         int filasAfectadasDeStockProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeStockProducto > 1)
@@ -382,8 +380,8 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetPrecioVentaProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "PrecioVenta = @precioVenta" +
-                    "WHERE Codigo = @id"; ;
+                        "PrecioVenta = @PrecioVenta" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -391,8 +389,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetPrecioVentaProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("PrecioVenta", SqlDbType.BigInt) { Value = producto.PrecioVenta });
+                        sqlCommand.Parameters.AddWithValue("@PrecioVenta", producto.PrecioVenta);
                         int filasAfectadasDePrecioVentaProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDePrecioVentaProducto > 1)
@@ -425,8 +422,8 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetDescripcionProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "Descripciones = @descripciones" +
-                    "WHERE Codigo = @id"; ;
+                        "Descripciones = @Descripciones" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -434,8 +431,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetDescripcionProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Descripciones", SqlDbType.VarChar) { Value = producto.Descripciones });
+                        sqlCommand.Parameters.AddWithValue("@Descripciones", producto.Descripciones);
                         int filasAfectadasDeDescripcionProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeDescripcionProducto > 1)
@@ -468,8 +464,8 @@ namespace ProyectoFinalApi.Models.GetModels
             {
                 string querySetIdUsuarioProducto = "UPDATE [SistemaGestion].[dbo].[Producto]" +
                     "SET " +
-                        "Categorias = @idUsuario" +
-                    "WHERE Codigo = @id"; ;
+                        "Categorias = @IdUsuario" +
+                    "WHERE Codigo = @Id"; ;
 
                 try
                 {
@@ -477,8 +473,7 @@ namespace ProyectoFinalApi.Models.GetModels
 
                     using (SqlCommand sqlCommand = new SqlCommand(querySetIdUsuarioProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = producto.Id });
-                        sqlCommand.Parameters.Add(new SqlParameter("Categorias", SqlDbType.BigInt) { Value = producto.IdUsuario });
+                        sqlCommand.Parameters.AddWithValue("@IdUsuario", producto.IdUsuario);
                         int filasAfectadasDeIdUsuarioProducto = sqlCommand.ExecuteNonQuery();
 
                         if (filasAfectadasDeIdUsuarioProducto > 1)
