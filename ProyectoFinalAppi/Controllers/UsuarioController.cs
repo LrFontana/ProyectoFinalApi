@@ -15,6 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpGet]
+        [Route("GetUsuariosPorId")]
         public List<Usuario> GetUsuariosPorId([FromBody] int id)
         {
             try
@@ -43,6 +44,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
+        [Route("EliminarUsuario")]
         public bool EliminarUsuario([FromBody]int id)
         {
             try
@@ -57,6 +59,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPut]
+        [Route("ModificarUsuario")]
         public bool ModificarUsuario([FromBody] PutUsuario usuario)
         {
             try
@@ -77,6 +80,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
+        [Route("CrearUsuario")]
         public bool CrearUsuario([FromBody] PostUsuario usuario)
         {
             try

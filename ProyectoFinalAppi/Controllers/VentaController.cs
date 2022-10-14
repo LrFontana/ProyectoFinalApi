@@ -16,6 +16,7 @@ namespace ProyectoFinalAppi.Controllers
     public class VentaController : ControllerBase
     {
         [HttpGet]
+        [Route("GetVentas")]
         public List<Venta> GetVentas()
         {
             try
@@ -29,6 +30,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
+        [Route("EliminarVenta")]
         public bool EliminarVenta([FromBody] int id)
         {
             try
@@ -42,6 +44,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPut]
+        [Route("ModificarVenta")]
         public bool ModificarVenta([FromBody] PutVenta venta)
         {
             try
@@ -58,6 +61,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
+        [Route("CrearVenta")]
         public bool CrearVenta([FromBody] PostVenta venta)
         {
             try
@@ -77,9 +81,9 @@ namespace ProyectoFinalAppi.Controllers
 
         [HttpPost]
         [Route("CargarVenta")]
-        public bool CargarVenta([FromBody] List<PostProductoAComprar> productos, int id)
-        {
-            return VentaHandler.CargarVenta(productos, id);            
+        public bool CargarVenta([FromBody] List<Producto> listaProducto, int id)
+        {            
+            return VentaHandler.CargarVenta(listaProducto, id);            
         }
     }
 }

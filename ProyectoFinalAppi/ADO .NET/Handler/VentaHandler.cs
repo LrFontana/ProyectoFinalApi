@@ -3,6 +3,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.ObjectPool;
 using ProyectoFinalApi.Controllers.DTOS;
 using ProyectoFinalAppi.ADO_.NET.Error;
+using ProyectoFinalAppi.Controllers.DTOS;
 using ProyectoFinalAppi.Models;
 using System;
 using System.Collections;
@@ -187,7 +188,68 @@ namespace ProyectoFinalAppi.ADO_.NET
                 }                
             }
             return listaObtenerVentas;
-        }        
-        
+        }
+
+        //Carga Venta.
+        public static bool CargarVenta(List<Producto> listaProducto, int idUsuario)
+        {
+            //Variable.
+            bool ventaCargada = false;
+            int idVenta;
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                sqlConnection.Open();
+
+                try
+                {
+                    string cargarVenta = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios, IdUsuario) VALUES(@listaProducto, @idUsuario); SELECT @@IDENTITY";
+
+                    using (SqlCommand sqlCommand = new SqlCommand(cargarVenta, sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@listaProducto", "comentario1");
+                        sqlCommand.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                        idVenta = (int)sqlCommand.ExecuteScalar(); //devuelve la primer columna.
+                        return idVenta > 0;
+                    }
+                    
+                    string cargarProductoVendido = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido] (IdVenta, IdProducto, Stock) VALUES(@idVenta, @listaProducto, @listaProducto)";
+                    foreach (var producto in listaProducto)
+                    {
+                        Convert.ToInt32(producto.PrecioVenta);
+                        Convert.ToInt32(producto.Costo);
+                        Convert.ToInt32(producto.IdUsuario);
+                    }
+
+                    using (SqlCommand sqlCommand = new SqlCommand(cargarProductoVendido, sqlConnection))
+                    {
+                        foreach (var producto in listaProducto)
+                        {
+                            sqlCommand.Parameters.AddWithValue("@Stock", producto.Stock);
+                            sqlCommand.Parameters.AddWithValue("@IdProducto",producto.Id);
+                        }                        
+                        sqlCommand.Parameters.AddWithValue("@IdVenta", (int)idVenta);                        
+                        sqlCommand.ExecuteNonQuery();
+                    }
+
+                    string descontarStockProducto = "UPDATE [SistemaGestion].[dbo].[Producto] SET Stock = @listaProducto";
+
+                    using (SqlCommand sqlCommand = new SqlCommand(descontarStockProducto, sqlConnection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("Stock", Convert.ToInt64(listaProducto));
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    ventaCargada = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                sqlConnection.Close();
+            }
+
+            return ventaCargada;
+        }
+
     }
 }

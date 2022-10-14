@@ -15,6 +15,7 @@ namespace ProyectoFinalAppi.Controllers
     public class ProductoController : ControllerBase
     {
         [HttpGet]
+        [Route("GetProductosPorId")]
         public List<Producto> GetProductosPorId([FromBody] int id)
         {
             try
@@ -28,6 +29,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
+        [Route("EliminarProducto")]
         public bool EliminarProducto([FromBody] int id)
         {
             try
@@ -41,6 +43,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPut]
+        [Route("ModificarProducto")]
         public bool ModificarProducto([FromBody] PutProducto producto)
         {
             try
@@ -61,6 +64,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
+        [Route("CrearProducto")]
         public bool CrearProducto([FromBody] PostProducto producto)
         {
             try

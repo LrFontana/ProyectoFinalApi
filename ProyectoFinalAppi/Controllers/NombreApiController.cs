@@ -6,7 +6,6 @@ namespace ProyectoFinalAppi.Controllers
     //Controlador Producto.
     [ApiController]
     [Route("[controller]")]
-
     public class NombreApiController : ControllerBase
     {
         [HttpGet]
