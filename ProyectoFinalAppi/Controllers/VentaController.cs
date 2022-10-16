@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoFinalApi.Controllers.DTOS;
 using ProyectoFinalApi.Controllers.ExecptionFilter;
 using ProyectoFinalAppi.ADO_.NET;
 using ProyectoFinalAppi.ADO_.NET.Error;
@@ -16,8 +15,8 @@ namespace ProyectoFinalAppi.Controllers
     public class VentaController : ControllerBase
     {
         [HttpGet]
-        [Route("GetVentas")]
-        public List<Venta> GetVentas()
+        [Route("GetVentas/{id}")]
+        public List<Venta> GetVentas([FromRoute] int id)
         {
             try
             {
@@ -30,8 +29,8 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        [Route("EliminarVenta")]
-        public bool EliminarVenta([FromBody] int id)
+        [Route("EliminarVenta/{id}")]
+        public bool EliminarVenta([FromRoute] int id)
         {
             try
             {
@@ -44,8 +43,8 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPut]
-        [Route("ModificarVenta")]
-        public bool ModificarVenta([FromBody] PutVenta venta)
+        [Route("ModificarVenta/{venta}")]
+        public bool ModificarVenta([FromRoute] PutVenta venta)
         {
             try
             {
@@ -61,8 +60,8 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
-        [Route("CrearVenta")]
-        public bool CrearVenta([FromBody] PostVenta venta)
+        [Route("CrearVenta/{venta}")]
+        public bool CrearVenta([FromRoute] PostVenta venta)
         {
             try
             {
@@ -80,7 +79,7 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
-        [Route("CargarVenta")]
+        [Route("CargarVenta/{listaProducto, id}")]
         public bool CargarVenta([FromBody] List<Producto> listaProducto, int id)
         {            
             return VentaHandler.CargarVenta(listaProducto, id);            

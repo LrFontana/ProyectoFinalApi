@@ -9,7 +9,7 @@ namespace ProyectoFinalAppi.ADO_.NET
     public static class ProductoHandler
     {
         //Variable.
-        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_connection=True;TrustServerCertificate=True;";
+        public const string ConnectionString = "Server=DESKTOP-A2H9T9K\\LEOGESTIO;DataBase=SistemaGestion;Trusted_Connection=True;TrustServerCertificate=True;";
 
         //Funciones.
 
@@ -154,6 +154,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         {
             //Variable.
             List<Producto> listaObtenerProductos = new List<Producto>();
+            
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -201,12 +202,11 @@ namespace ProyectoFinalAppi.ADO_.NET
         public static List<Producto> GetProductosPorId(int id)
         {
             //Variable.
-            List<Producto> listaObtenerProductosPorId = new List<Producto>();
-            
+            List<Producto> listaObtenerProductosPorId = new List<Producto>();            
+
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryGetProductoPorId = "SELECT * FROM [SistemaGestion].[dbo].[Producto]" +
-                    "WHERE Id = @id";
+                string queryGetProductoPorId = "SELECT * FROM [SistemaGestion].[dbo].[Producto] WHERE Id = @id";
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetProductoPorId, sqlConnection))
                 {

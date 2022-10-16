@@ -1,7 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.ObjectPool;
-using ProyectoFinalApi.Controllers.DTOS;
 using ProyectoFinalAppi.ADO_.NET.Error;
 using ProyectoFinalAppi.Controllers.DTOS;
 using ProyectoFinalAppi.Models;
@@ -146,7 +145,7 @@ namespace ProyectoFinalAppi.ADO_.NET
         }
 
         //Obtener Ventas.
-        public static List<Venta> GetVentas()
+        public static List<Venta> GetVentas(int id)
         {
             //Variable
             List<Venta> listaObtenerVentas = new List<Venta>();
@@ -159,6 +158,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                 {
                     using (SqlCommand sqlCommand = new SqlCommand(queryGetVentas, sqlConnection))
                     {
+                        sqlCommand.Parameters.AddWithValue("@id", id);
                         sqlConnection.Open();
 
                         using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
@@ -167,8 +167,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                             {
                                 while (dataReader.Read())
                                 {
-                                    Venta venta = new Venta();
-                                    venta.Id = Convert.ToInt32(dataReader["Id"]);
+                                    Venta venta = new Venta();                                    
                                     venta.Comentarios = dataReader["Comentarios"].ToString();
                                     listaObtenerVentas.Add(venta);
                                 }

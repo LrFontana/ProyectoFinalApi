@@ -18,44 +18,21 @@ namespace ProyectoFinalAppi.Controllers
         [Route("GetUsuariosPorId")]
         public List<Usuario> GetUsuariosPorId([FromBody] int id)
         {
-            try
-            {
-                return UsuarioHandler.GetUsuariosPorId(id);
-            }
-            catch (GetErrorException ex)
-            {
-                throw new GetErrorException(ex.Message);
-            }            
+            return UsuarioHandler.GetUsuariosPorId(id);                      
         }
 
         [HttpGet]
         [Route("VerificarUsuario")]
         public bool VerificarUsuario([FromBody] string nombre, string contraseña) 
         {
-            try
-            {
-                return UsuarioHandler.VerificarUsuario(nombre, contraseña);
-            }
-            catch (GetErrorException ex)
-            {
-
-                throw new GetErrorException(ex.Message);
-            }
+            return UsuarioHandler.VerificarUsuario(nombre, contraseña);            
         }
 
         [HttpDelete]
         [Route("EliminarUsuario")]
         public bool EliminarUsuario([FromBody]int id)
-        {
-            try
-            {
-                return UsuarioHandler.EliminarUsuario(id);
-                
-            }
-            catch (EliminarErrorException ex)
-            {
-                throw new EliminarErrorException(ex.Message);
-            }
+        {            
+            return UsuarioHandler.EliminarUsuario(id);            
         }
 
         [HttpPut]

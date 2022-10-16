@@ -164,7 +164,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                             {
                                 while (dataReader.Read())
                                 {
-                                    ProductoVendido productoVendido = new ProductoVendido();
+                                    ProductoVendido productoVendido = new ProductoVendido();                                    
                                     productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
                                     productoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
                                     productoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
@@ -197,7 +197,7 @@ namespace ProyectoFinalAppi.ADO_.NET
             
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString)) 
             {
-                string queryGetProductosVendidosPorId = "SELECT Id, Stock, IdProducto, IdVenta FROM [SistemaGestion].[dbo].[ProductoVendido]" +
+                string queryGetProductosVendidosPorId = "SELECT Stock, IdProducto, IdVenta FROM [SistemaGestion].[dbo].[ProductoVendido]" +
                     "WHERE Id = @id";                    
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryGetProductosVendidosPorId, sqlConnection))
@@ -214,8 +214,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                             {
                                 while (dataReader.Read())
                                 {
-                                    ProductoVendido productoVendido = new ProductoVendido();
-                                    productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
+                                    ProductoVendido productoVendido = new ProductoVendido();                                    
                                     productoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
                                     productoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
                                     productoVendido.IdVenta = Convert.ToInt32(dataReader["IdVenta"]);

@@ -223,8 +223,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                             {
                                 while (dataReader.Read())
                                 {                                    
-                                    Usuario usuario = new Usuario();
-                                    usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                    Usuario usuario = new Usuario();                                    
                                     usuario.Nombre = dataReader["Nombre"].ToString();
                                     usuario.Apellido = dataReader["Apellido"].ToString();
                                     usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();

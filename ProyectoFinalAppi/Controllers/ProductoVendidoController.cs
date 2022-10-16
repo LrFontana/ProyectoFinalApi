@@ -15,8 +15,8 @@ namespace ProyectoFinalAppi.Controllers
     public class ProductoVendidoController : ControllerBase
     {
         [HttpGet]
-        [Route("GetProductosVendidosPorId")]
-        public List<ProductoVendido> GetProductosVendidosPorId([FromBody] int id)
+        [Route("GetProductosVendidosPorId/{id}")]
+        public List<ProductoVendido> GetProductosVendidosPorId([FromRoute] int id)
         {
             try
             {
@@ -29,8 +29,8 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpDelete]
-        [Route("EliminarProductoVendido")]
-        public bool EliminarProductoVendido([FromBody] int id)
+        [Route("EliminarProductoVendido/{id}")]
+        public bool EliminarProductoVendido([FromRoute] int id)
         {
             try
             {
@@ -43,8 +43,8 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPut]
-        [Route("ModificarProductoVendido")]
-        public bool ModificarProductoVendido([FromBody] PutProductoVendido productoVendido)
+        [Route("ModificarProductoVendido/{productoVendido}")]
+        public bool ModificarProductoVendido([FromRoute] PutProductoVendido productoVendido)
         {
             try
             {
@@ -62,14 +62,13 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
-        [Route("CrearProductoVendido")]
-        public bool CrearProductoVendido([FromBody] PostProductoVendido productoVendido)
+        [Route("CrearProductoVendido/{productoVendido}")]
+        public bool CrearProductoVendido([FromRoute] PostProductoVendido productoVendido)
         {
             try
             {
                 return ProductoVendidoHandler.CrearProductoVendido(new ProductoVendido
-                {
-                    Id = productoVendido.Id,
+                {                    
                     IdProducto = productoVendido.IdProducto,
                     IdVenta = productoVendido.IdVenta,
                     Stock = productoVendido.Stock,

@@ -15,8 +15,8 @@ namespace ProyectoFinalAppi.Controllers
     public class ProductoController : ControllerBase
     {
         [HttpGet]
-        [Route("GetProductosPorId")]
-        public List<Producto> GetProductosPorId([FromBody] int id)
+        [Route("GetProductosPorId/{id}")]
+        public List<Producto> GetProductosPorId([FromRoute] int id)
         {
             try
             {
@@ -25,12 +25,13 @@ namespace ProyectoFinalAppi.Controllers
             catch (GetErrorException ex)
             {
                 throw new GetErrorException(ex.Message);
+                return new List<Producto>();
             }
         }
 
         [HttpDelete]
-        [Route("EliminarProducto")]
-        public bool EliminarProducto([FromBody] int id)
+        [Route("EliminarProducto/{id}")]
+        public bool EliminarProducto([FromRoute] int id)
         {
             try
             {
@@ -43,8 +44,8 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPut]
-        [Route("ModificarProducto")]
-        public bool ModificarProducto([FromBody] PutProducto producto)
+        [Route("ModificarProducto/{producto}")]
+        public bool ModificarProducto([FromRoute] PutProducto producto)
         {
             try
             {
@@ -59,24 +60,24 @@ namespace ProyectoFinalAppi.Controllers
             }
             catch (ModificarErrorException ex)
             {
-                throw new ModificarErrorException(ex.Message);
+                throw new ModificarErrorException(ex.Message);                
             }
         }
 
         [HttpPost]
-        [Route("CrearProducto")]
-        public bool CrearProducto([FromBody] PostProducto producto)
+        [Route("CrearProducto/{producto}")]
+        public bool CrearProducto([FromRoute] PostProducto producto)
         {
             try
             {
                 return ProductoHandler.CrearProducto(new Producto
                 {
-                    Id = producto.Id,
+                    Descripciones = producto.Descripciones,
                     Costo = producto.Costo,
                     Stock = producto.Stock,
                     IdUsuario = producto.IdUsuario,
                     PrecioVenta = producto.PrecioVenta,
-                    Descripciones = producto.Descripciones,
+                    
                 });
             }
             catch (CrearErrorException ex)
