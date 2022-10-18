@@ -15,29 +15,29 @@ namespace ProyectoFinalAppi.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpGet]
-        [Route("GetUsuariosPorId")]
-        public List<Usuario> GetUsuariosPorId([FromBody] int id)
+        [Route("GetUsuariosPorId/{id}")]
+        public List<Usuario> GetUsuariosPorId([FromRoute] int id)
         {
             return UsuarioHandler.GetUsuariosPorId(id);                      
         }
 
         [HttpGet]
-        [Route("VerificarUsuario")]
-        public bool VerificarUsuario([FromBody] string nombre, string contraseña) 
+        [Route("VerificarUsuario/{id}")]
+        public bool VerificarUsuario([FromRoute] string nombre, string contraseña) 
         {
             return UsuarioHandler.VerificarUsuario(nombre, contraseña);            
         }
 
         [HttpDelete]
-        [Route("EliminarUsuario")]
-        public bool EliminarUsuario([FromBody]int id)
+        [Route("EliminarUsuario/{id}")]
+        public bool EliminarUsuario([FromRoute]int id)
         {            
             return UsuarioHandler.EliminarUsuario(id);            
         }
 
         [HttpPut]
-        [Route("ModificarUsuario")]
-        public bool ModificarUsuario([FromBody] PutUsuario usuario)
+        [Route("ModificarUsuario/{usuario}")]
+        public bool ModificarUsuario([FromRoute] PutUsuario usuario)
         {
             try
             {
@@ -57,14 +57,13 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
-        [Route("CrearUsuario")]
-        public bool CrearUsuario([FromBody] PostUsuario usuario)
+        [Route("CrearUsuario/{usuario}")]
+        public bool CrearUsuario([FromRoute] PostUsuario usuario)
         {
             try
             {
                 return UsuarioHandler.CreartUsuario(new Usuario
-                {
-                    Id = usuario.Id,
+                {                    
                     Nombre = usuario.Nombre,
                     Apellido = usuario.Apellido,
                     NombreUsuario = usuario.NombreUsuario,

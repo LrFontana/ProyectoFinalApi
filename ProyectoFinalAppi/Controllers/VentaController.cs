@@ -20,7 +20,7 @@ namespace ProyectoFinalAppi.Controllers
         {
             try
             {
-                return VentaHandler.GetVentas();
+                return VentaHandler.GetVentas(id);
             }
             catch (GetErrorException ex)
             {
@@ -66,8 +66,7 @@ namespace ProyectoFinalAppi.Controllers
             try
             {
                 return VentaHandler.CrearVenta(new Venta
-                {
-                    Id = venta.Id,
+                {                    
                     Comentarios = venta.Comentarios,                    
                 });
             }
@@ -79,10 +78,10 @@ namespace ProyectoFinalAppi.Controllers
         }
 
         [HttpPost]
-        [Route("CargarVenta/{listaProducto, id}")]
-        public bool CargarVenta([FromBody] List<Producto> listaProducto, int id)
+        [Route("CargarVenta/{listaProducto}/{idUsuario}")]
+        public bool CargarVenta([FromRoute] List<Producto> listaProducto, int idUsuario)
         {            
-            return VentaHandler.CargarVenta(listaProducto, id);            
+            return VentaHandler.CargarVenta(listaProducto, idUsuario);            
         }
     }
 }

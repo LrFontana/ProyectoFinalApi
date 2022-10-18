@@ -194,7 +194,8 @@ namespace ProyectoFinalAppi.ADO_.NET
         {
             //Variable.
             bool ventaCargada = false;
-            int idVenta;
+            listaProducto = new List<Producto>();
+            int idVenta = 0;
 
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
@@ -202,24 +203,21 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                 try
                 {
-                    string cargarVenta = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios, IdUsuario) VALUES(@listaProducto, @idUsuario); SELECT @@IDENTITY";
+                    string cargarVenta = "INSERT INTO [SistemaGestion].[dbo].[Venta] (Comentarios, IdUsuario) VALUES(@Descripciones, @idUsuario); SELECT @@IDENTITY";
 
                     using (SqlCommand sqlCommand = new SqlCommand(cargarVenta, sqlConnection))
                     {
-                        sqlCommand.Parameters.AddWithValue("@listaProducto", "comentario1");
+                        foreach (var producto in listaProducto)
+                        {
+                            sqlCommand.Parameters.AddWithValue("@Descripciones", producto.Descripciones);
+                        }                        
                         sqlCommand.Parameters.AddWithValue("@IdUsuario", idUsuario);
-                        idVenta = (int)sqlCommand.ExecuteScalar(); //devuelve la primer columna.
-                        return idVenta > 0;
+                        idVenta = Convert.ToInt32(sqlCommand.ExecuteScalar()); //devuelve la primer columna.
+                        return idVenta > 0;                        
                     }
                     
                     string cargarProductoVendido = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido] (IdVenta, IdProducto, Stock) VALUES(@idVenta, @listaProducto, @listaProducto)";
-                    foreach (var producto in listaProducto)
-                    {
-                        Convert.ToInt32(producto.PrecioVenta);
-                        Convert.ToInt32(producto.Costo);
-                        Convert.ToInt32(producto.IdUsuario);
-                    }
-
+                    
                     using (SqlCommand sqlCommand = new SqlCommand(cargarProductoVendido, sqlConnection))
                     {
                         foreach (var producto in listaProducto)
@@ -235,7 +233,10 @@ namespace ProyectoFinalAppi.ADO_.NET
 
                     using (SqlCommand sqlCommand = new SqlCommand(descontarStockProducto, sqlConnection))
                     {
-                        sqlCommand.Parameters.AddWithValue("Stock", Convert.ToInt64(listaProducto));
+                        foreach (var producto in listaProducto)
+                        {
+                            sqlCommand.Parameters.AddWithValue("Stock", producto.Stock);
+                        }                        
                         sqlCommand.ExecuteNonQuery();
                     }
                     ventaCargada = true;
@@ -245,6 +246,7 @@ namespace ProyectoFinalAppi.ADO_.NET
                     throw new Exception(ex.Message);
                 }
                 sqlConnection.Close();
+                listaProducto.Clear();
             }
 
             return ventaCargada;
